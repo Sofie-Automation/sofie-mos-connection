@@ -499,6 +499,27 @@ describe('Profile 2', () => {
 		expect(mosTypes.mosString128.stringify(returnedAck.ID)).toEqual('96857485')
 		checkAckSnapshot(returnedAck)
 	})
+	test('sendStoryStatus with missing incoming mosID', async () => {
+		// This test may seem weird, but this has been seen when talking with ENPS for specifically this operation.
+
+		const mockReplyRoAck = jest.fn((data) => {
+			const str = decode(data)
+			const messageID = getMessageId(str)
+			return encode(getXMLReply(messageID, xmlData.roAck, '')) // empty mosID
+		})
+
+		// Prepare server response
+		socketMockUpper.mockAddReply(mockReplyRoAck)
+		const returnedAck: IMOSROAck = await mosDevice.sendStoryStatus(xmlApiData.roElementStat_story)
+		await socketMockUpper.mockWaitForSentMessages()
+		expect(mockReplyRoAck).toHaveBeenCalledTimes(1)
+		const msg = decode(mockReplyRoAck.mock.calls[0][0])
+		expect(msg).toMatch(/<roElementStat element="STORY">/)
+		checkMessageSnapshot(msg)
+		expect(returnedAck).toBeTruthy()
+		expect(mosTypes.mosString128.stringify(returnedAck.ID)).toEqual('96857485')
+		checkAckSnapshot(returnedAck)
+	})
 	test('sendItemStatus', async () => {
 		// Prepare server response
 		socketMockUpper.mockAddReply(mockReplyRoAck)

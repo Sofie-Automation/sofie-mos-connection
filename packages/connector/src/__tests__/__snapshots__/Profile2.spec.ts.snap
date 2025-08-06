@@ -4626,3 +4626,106 @@ exports[`Profile 2 sendStoryStatus 2`] = `
   "strict": true,
 }
 `;
+
+exports[`Profile 2 sendStoryStatus with missing incoming mosID 1`] = `
+"<mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>xx</messageID>
+  <roElementStat element="STORY">
+    <roID>5PM</roID>
+    <storyID>HOTEL FIRE</storyID>
+    <status>PLAY</status>
+    <time>xx</time>
+  </roElementStat>
+</mos>"
+`;
+
+exports[`Profile 2 sendStoryStatus with missing incoming mosID 2`] = `
+{
+  "ID": {
+    "_mosString128": "96857485",
+  },
+  "Status": {
+    "_mosString128": "Unknown object M000133",
+  },
+  "Stories": [
+    {
+      "ID": {
+        "_mosString128": "5983A501:0049B924:8390EF2B",
+      },
+      "Items": [
+        {
+          "Channel": {
+            "_mosString128": "",
+          },
+          "ID": {
+            "_mosString128": "0",
+          },
+          "Objects": [
+            {
+              "ID": {
+                "_mosString128": "M000224",
+              },
+              "Status": "LOADED",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      "ID": {
+        "_mosString128": "3854737F:0003A34D:983A0B28",
+      },
+      "Items": [
+        {
+          "Channel": {
+            "_mosString128": "",
+          },
+          "ID": {
+            "_mosString128": "0",
+          },
+          "Objects": [
+            {
+              "ID": {
+                "_mosString128": "M000133",
+              },
+              "Status": "UNKNOWN",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  "_messageID": 0,
+  "mosTypes": {
+    "mosDuration": {
+      "create": [Function],
+      "fallback": [Function],
+      "is": [Function],
+      "stringify": [Function],
+      "validate": [Function],
+      "valueOf": [Function],
+    },
+    "mosString128": {
+      "create": [Function],
+      "fallback": [Function],
+      "is": [Function],
+      "stringify": [Function],
+      "validate": [Function],
+      "valueOf": [Function],
+    },
+    "mosTime": {
+      "create": [Function],
+      "fallback": [Function],
+      "is": [Function],
+      "stringify": [Function],
+      "validate": [Function],
+      "valueOf": [Function],
+    },
+    "strict": true,
+  },
+  "port": "upper",
+  "strict": true,
+}
+`;

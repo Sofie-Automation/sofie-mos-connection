@@ -167,6 +167,18 @@ export function xml2js(messageString: string): MosModel.AnyXMLObject {
 	}
 	concatChildrenAndTraverseObject(object)
 
+	const convertEmptyObjectToString = (obj: any): any => {
+		if (!!obj && typeof obj === 'object' && Object.keys(obj).length === 0) {
+			return ''
+		} else {
+			return obj
+		}
+	}
+	const mosObject = object.mos as MosModel.AnyXMLObject | undefined
+	if (mosObject?.mosID !== undefined) {
+		mosObject.mosID = convertEmptyObjectToString(mosObject.mosID)
+	}
+
 	return object
 }
 export function addTextElement(

@@ -125,9 +125,9 @@ export class MosMessageParser extends EventEmitter<MosMessageParserEvents> {
 			}
 		} catch (err) {
 			// eslint-disable-next-line no-console
-			console.log('dataChunks-------------\n', this.dataChunks)
+			console.log('dataChunks-------------\n' + this.dataChunks)
 			// eslint-disable-next-line no-console
-			console.log('messageString---------\n', messageString)
+			console.log('messageString---------\n' + messageString)
 			// this.emit('error', e)
 
 			throw err
