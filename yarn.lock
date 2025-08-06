@@ -962,12 +962,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mos-connection/connector@4.2.2, @mos-connection/connector@workspace:packages/connector":
+"@mos-connection/connector@4.2.3, @mos-connection/connector@workspace:packages/connector":
   version: 0.0.0-use.local
   resolution: "@mos-connection/connector@workspace:packages/connector"
   dependencies:
-    "@mos-connection/helper": 4.2.2
-    "@mos-connection/model": 4.2.2
+    "@mos-connection/helper": 4.2.3
+    "@mos-connection/model": 4.2.3
     "@sofie-automation/code-standard-preset": "*"
     eventemitter3: ^5.0.1
     iconv-lite: ^0.6.3
@@ -978,11 +978,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mos-connection/helper@4.2.2, @mos-connection/helper@workspace:packages/helper":
+"@mos-connection/helper@4.2.3, @mos-connection/helper@workspace:packages/helper":
   version: 0.0.0-use.local
   resolution: "@mos-connection/helper@workspace:packages/helper"
   dependencies:
-    "@mos-connection/model": 4.2.2
+    "@mos-connection/model": 4.2.3
     "@sofie-automation/code-standard-preset": "*"
     iconv-lite: ^0.6.3
     tslib: ^2.5.3
@@ -992,7 +992,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mos-connection/model@4.2.2, @mos-connection/model@workspace:packages/model":
+"@mos-connection/model@4.2.3, @mos-connection/model@workspace:packages/model":
   version: 0.0.0-use.local
   resolution: "@mos-connection/model@workspace:packages/model"
   dependencies:
@@ -6626,7 +6626,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "mos-examples@workspace:packages/examples"
   dependencies:
-    "@mos-connection/connector": 4.2.2
+    "@mos-connection/connector": 4.2.3
     "@sofie-automation/code-standard-preset": "*"
     typescript: ~4.9.5
   languageName: unknown
@@ -7863,8 +7863,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "quick-mos@workspace:packages/quick-mos"
   dependencies:
-    "@mos-connection/connector": 4.2.2
-    "@mos-connection/model": 4.2.2
+    "@mos-connection/connector": 4.2.3
+    "@mos-connection/model": 4.2.3
     "@sofie-automation/code-standard-preset": "*"
     "@types/node": ^20.10.5
     "@types/underscore": ^1.11.5

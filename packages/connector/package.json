@@ -1,6 +1,6 @@
 {
 	"name": "@mos-connection/connector",
-	"version": "4.2.2",
+	"version": "4.2.3",
 	"description": "MOS compliant TCP/IP Socket connection.",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
@@ -29,8 +29,8 @@
 		"/LICENSE"
 	],
 	"dependencies": {
-		"@mos-connection/helper": "4.2.2",
-		"@mos-connection/model": "4.2.2",
+		"@mos-connection/helper": "4.2.3",
+		"@mos-connection/model": "4.2.3",
 		"eventemitter3": "^5.0.1",
 		"iconv-lite": "^0.6.3",
 		"tslib": "^2.5.3",

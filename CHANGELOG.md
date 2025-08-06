@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.3](https://github.com/nrkno/tv-automation-mos-connection/compare/v4.2.2...v4.2.3) (2025-08-06)
+
+
+### Bug Fixes
+
+* handle empty mosID in acks ([#113](https://github.com/nrkno/tv-automation-mos-connection/issues/113)) ([8c5c199](https://github.com/nrkno/tv-automation-mos-connection/commit/8c5c1998bca37d006862af86d719fa6a4c39019f))
+
+
+
+
+
 ## [4.2.2](https://github.com/nrkno/tv-automation-mos-connection/compare/v4.2.2-alpha.0...v4.2.2) (2025-01-22)
 
 
