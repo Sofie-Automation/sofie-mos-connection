@@ -1,4 +1,4 @@
-import { xml2js } from '../Utils'
+import { convertEmptyObjectToString, xml2js } from '../Utils'
 
 test('xml2js with junk', () => {
 	const o: any = xml2js(`
@@ -145,4 +145,17 @@ test('xml2js with simple data', () => {
 			},
 		})
 	}
+})
+test('convertEmptyObjectToString', () => {
+	expect(convertEmptyObjectToString({})).toStrictEqual('')
+	expect(convertEmptyObjectToString({ a: 1 })).toStrictEqual({ a: 1 })
+
+	expect(convertEmptyObjectToString([])).toStrictEqual([])
+
+	expect(convertEmptyObjectToString(null)).toStrictEqual(null)
+	expect(convertEmptyObjectToString(false)).toStrictEqual(false)
+	expect(convertEmptyObjectToString(true)).toStrictEqual(true)
+	expect(convertEmptyObjectToString(123)).toStrictEqual(123)
+	expect(convertEmptyObjectToString('asdf')).toStrictEqual('asdf')
+	expect(convertEmptyObjectToString(undefined)).toStrictEqual(undefined)
 })

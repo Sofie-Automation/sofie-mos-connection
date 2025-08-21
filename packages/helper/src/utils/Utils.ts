@@ -165,21 +165,21 @@ export function xml2js(messageString: string): MosModel.AnyXMLObject {
 			}
 		}
 	}
-	concatChildrenAndTraverseObject(object)
+	// concatChildrenAndTraverseObject(object)
 
-	const convertEmptyObjectToString = (obj: any): any => {
-		if (!!obj && typeof obj === 'object' && Object.keys(obj).length === 0) {
-			return ''
-		} else {
-			return obj
-		}
-	}
 	const mosObject = object.mos as MosModel.AnyXMLObject | undefined
 	if (mosObject?.mosID !== undefined) {
 		mosObject.mosID = convertEmptyObjectToString(mosObject.mosID)
 	}
 
 	return object
+}
+export function convertEmptyObjectToString<T>(obj: T): T | string {
+	if (obj && typeof obj === 'object' && Object.keys(obj).length === 0 && Array.isArray(obj) === false) {
+		return ''
+	} else {
+		return obj
+	}
 }
 export function addTextElement(
 	root: XMLBuilder.XMLElement,
