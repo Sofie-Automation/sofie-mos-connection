@@ -19,7 +19,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Use Node.js 16
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 16
       - name: Prepare Environment
@@ -43,7 +43,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Use Node.js 16
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 16
       - name: Prepare Environment
