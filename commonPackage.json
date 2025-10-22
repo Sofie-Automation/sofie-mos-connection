@@ -1,9 +1,7 @@
 {
 	"description": "The properties of this file are copied to all packages' package.json files by running `yarn postinstall`",
 	"scripts": {
-		"validate:dependencies": "yarn npm audit --environment production && run license-validate",
-		"validate:dev-dependencies": "yarn npm audit ",
-		"license-validate": "run sofie-licensecheck"
+		"license-validate": "run -BT sofie-licensecheck"
 	},
 	"engines": {
 		"node": ">=22.20.0"

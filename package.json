@@ -25,8 +25,8 @@
     "lint-fix": "run lint --fix",
     "test": "vitest",
     "test:coverage": "vitest --run --coverage",
-    "validate:dependencies": "lerna exec --parallel yarn validate:dependencies && yarn license-validate",
-    "validate:dev-dependencies": "lerna exec --parallel yarn validate:dev-dependencies",
+    "validate:dependencies": "yarn npm audit --environment production && lerna exec --parallel yarn license-validate",
+    "validate:dev-dependencies": "yarn npm audit",
     "license-validate": "sofie-licensecheck --allowPackages \"mos-examples@0.0.0;quick-mos@0.0.0;mos-dummy-server@0.0.0\""
   },
   "devDependencies": {

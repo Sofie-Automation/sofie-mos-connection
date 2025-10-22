@@ -14,9 +14,7 @@
 	},
 	"homepage": "https://github.com/Sofie-Automation/sofie-mos-connection#readme",
 	"scripts": {
-		"validate:dependencies": "yarn npm audit --environment production && run license-validate",
-		"validate:dev-dependencies": "yarn npm audit ",
-		"license-validate": "run sofie-licensecheck"
+		"license-validate": "run -BT sofie-licensecheck"
 	},
 	"files": [
 		"/dist",
