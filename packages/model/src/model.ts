@@ -1,5 +1,5 @@
-import { IMOSTime, IMOSString128, IMOSDuration, IMOSExternalMetaData } from './mosTypes'
-import { AnyXMLValue } from './xmlParse'
+import { IMOSTime, IMOSString128, IMOSDuration, IMOSExternalMetaData } from './mosTypes.js'
+import { AnyXMLValue } from './xmlParse.js'
 
 export interface IMOSROAction {
 	RunningOrderID: IMOSString128

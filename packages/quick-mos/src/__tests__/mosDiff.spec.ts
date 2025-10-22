@@ -1,4 +1,5 @@
-import { diffLists, applyOperations } from '../mosDiff'
+import { diffLists, applyOperations } from '../mosDiff.js'
+import { describe, test, expect } from 'vitest'
 
 function quickList(ids: string[]) {
 	return ids.map((id) => ({ id: id, changedHash: '1', content: '' }))

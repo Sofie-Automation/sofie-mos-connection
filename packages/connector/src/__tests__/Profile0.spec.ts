@@ -13,10 +13,11 @@ import {
 	getXMLReply,
 	mosTypes,
 	setupMocks,
-} from './lib'
-import { MosConnection, MosDevice, IMOSObject, IMOSListMachInfo } from '..'
-import { SocketMock } from '../__mocks__/socket'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
+} from './lib.js'
+import { MosConnection, MosDevice, IMOSObject, IMOSListMachInfo } from '../index.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
+import { describe, test, expect, beforeAll, beforeEach, afterAll, MockedFunction, vitest } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore imports are unused
@@ -42,10 +43,10 @@ describe('Profile 0', () => {
 	let serverSocketMockUpper: SocketMock
 	let serverSocketMockQuery: SocketMock
 
-	let onRequestMachineInfo: jest.Mock<any, any>
-	let onRequestMOSObject: jest.Mock<any, any>
-	let onRequestAllMOSObjects: jest.Mock<any, any>
-	let onMOSObjects: jest.Mock<any, any>
+	let onRequestMachineInfo: MockedFunction<any>
+	let onRequestMOSObject: MockedFunction<any>
+	let onRequestAllMOSObjects: MockedFunction<any>
+	let onMOSObjects: MockedFunction<any>
 
 	beforeAll(async () => {
 		mosConnection = await getMosConnection(
@@ -58,17 +59,17 @@ describe('Profile 0', () => {
 		mosDevice = await getMosDevice(mosConnection)
 
 		// Profile 0:
-		onRequestMachineInfo = jest.fn(async () => {
+		onRequestMachineInfo = vitest.fn(async () => {
 			return xmlApiData.machineInfo
 		})
 		mosDevice.onRequestMachineInfo(async (): Promise<IMOSListMachInfo> => {
 			return onRequestMachineInfo()
 		})
 		// Profile 1:
-		onRequestMOSObject = jest.fn(async () => {
+		onRequestMOSObject = vitest.fn(async () => {
 			return xmlApiData.mosObj
 		})
-		onRequestAllMOSObjects = jest.fn(async () => {
+		onRequestAllMOSObjects = vitest.fn(async () => {
 			return [xmlApiData.mosObj, xmlApiData.mosObj2]
 		})
 		mosDevice.onRequestMOSObject(async (objId: string): Promise<IMOSObject | null> => {
@@ -77,7 +78,7 @@ describe('Profile 0', () => {
 		mosDevice.onRequestAllMOSObjects(async (): Promise<Array<IMOSObject>> => {
 			return onRequestAllMOSObjects()
 		})
-		onMOSObjects = jest.fn(async (): Promise<IMOSAck> => {
+		onMOSObjects = vitest.fn(async (): Promise<IMOSAck> => {
 			return {
 				ID: mosTypes.mosString128.create(''),
 				Revision: 1,
@@ -125,7 +126,7 @@ describe('Profile 0', () => {
 
 		serverSocketMockLower.setAutoReplyToHeartBeat(false) // Handle heartbeat manually
 
-		const serverReply: jest.Mock<any, any> = jest.fn(() => false)
+		const serverReply: MockedFunction<(data: any) => false> = vitest.fn((_data: any) => false)
 		serverSocketMockLower.mockAddReply(serverReply)
 		// Fake incoming message on socket:
 		const sendMessageId = await fakeIncomingMessage(serverSocketMockLower, xmlData.heartbeat)
@@ -180,7 +181,7 @@ describe('Profile 0', () => {
 	test('unknown party connects', async () => {
 		expect(serverSocketMockLower).toBeTruthy()
 		serverSocketMockLower.setAutoReplyToHeartBeat(false)
-		const serverReply: jest.Mock<any, any> = jest.fn(() => false)
+		const serverReply: MockedFunction<(data: any) => false> = vitest.fn((_data: any) => false)
 		serverSocketMockLower.mockAddReply(serverReply)
 
 		// Fake incoming message on socket:
@@ -215,7 +216,7 @@ describe('Profile 0', () => {
 
 	test('requestMachineInfo', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.machineInfo)
@@ -235,7 +236,7 @@ describe('Profile 0', () => {
 	})
 	test('requestMachineInfo - missing <opTime>', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const replyMessage = xmlData.machineInfo.replace(/<opTime>.*<\/opTime>/, '')
 			const repl = getXMLReply(getMessageId(str), replyMessage)
@@ -258,7 +259,7 @@ describe('Profile 0', () => {
 	})
 	test('requestMachineInfo - empty <opTime>', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const replyMessage = xmlData.machineInfo.replace(/<opTime>.*<\/opTime>/, '<opTime></opTime>')
 			const repl = getXMLReply(getMessageId(str), replyMessage)
@@ -281,7 +282,7 @@ describe('Profile 0', () => {
 	})
 	test('requestMachineInfo - bad formatted <opTime>', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const replyMessage = xmlData.machineInfo.replace(/<opTime>.*<\/opTime>/, '<opTime>>BAD DATA</opTime>')
@@ -301,7 +302,7 @@ describe('Profile 0', () => {
 	})
 	test('requestMachineInfo - missing <time>', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const replyMessage = xmlData.machineInfo.replace(/<time>.*<\/time>/, '')
 			const repl = getXMLReply(getMessageId(str), replyMessage)
@@ -320,7 +321,7 @@ describe('Profile 0', () => {
 	})
 	test('requestMachineInfo - empty <time>', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const replyMessage = xmlData.machineInfo.replace(/<time>.*<\/time>/, '<time></time>')
 			const repl = getXMLReply(getMessageId(str), replyMessage)
@@ -339,7 +340,7 @@ describe('Profile 0', () => {
 	})
 	test('requestMachineInfo - bad formatted <time>', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const replyMessage = xmlData.machineInfo.replace(/<time>.*<\/time>/, '<time>BAD DATA</time>')
 			const repl = getXMLReply(getMessageId(str), replyMessage)

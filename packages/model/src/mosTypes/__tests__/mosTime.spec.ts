@@ -1,4 +1,5 @@
-import { getMosTypes } from '../../mosTypes'
+import { getMosTypes } from '../../mosTypes.js'
+import { describe, test, expect } from 'vitest'
 
 describe('MosTime', () => {
 	test('basic', () => {
@@ -9,7 +10,7 @@ describe('MosTime', () => {
 		const mosTime = mosTypes.mosTime.create(date)
 		expect(mosTypes.mosTime.stringify(mosTime)).toBe('2009-04-11T14:22:07,000')
 		expect(mosTypes.mosTime.valueOf(mosTime)).toBe(date.getTime())
-		expect(() => mosTypes.mosTime.validate(mosTime)).not.toThrowError()
+		expect(() => mosTypes.mosTime.validate(mosTime)).not.toThrow()
 		// @ts-expect-error wrong input, but still:
 		expect(mosTypes.mosTime.valueOf(123456)).toBe(123456)
 	})
@@ -53,15 +54,15 @@ describe('MosTime', () => {
 		// @ts-ignore
 		let date = new Date(undefined) // Invalid date
 		expect(() => mosTypes.mosTime.create(date)).toThrow(/Invalid timestamp/)
-		expect(() => mosTypes.mosTime.create('abcd')).toThrowError(/Invalid timestamp/)
+		expect(() => mosTypes.mosTime.create('abcd')).toThrow(/Invalid timestamp/)
 		// @ts-expect-error bad input
-		expect(() => mosTypes.mosTime.create({})).toThrowError(/Invalid input/)
+		expect(() => mosTypes.mosTime.create({})).toThrow(/Invalid input/)
 		// @ts-expect-error bad input
-		expect(() => mosTypes.mosTime.create(null)).toThrowError(/Invalid input/)
+		expect(() => mosTypes.mosTime.create(null)).toThrow(/Invalid input/)
 		// @ts-expect-error bad input
-		expect(() => mosTypes.mosTime.create(undefined)).toThrowError(/Invalid input/)
+		expect(() => mosTypes.mosTime.create(undefined)).toThrow(/Invalid input/)
 		// @ts-expect-error bad input
-		expect(() => mosTypes.mosTime.create(false)).toThrowError(/Invalid input/)
+		expect(() => mosTypes.mosTime.create(false)).toThrow(/Invalid input/)
 
 		// test input format date, number and various strings
 		date = new Date(2018, 1, 24, 23, 13, 52, 0) // local, zero-indexed month

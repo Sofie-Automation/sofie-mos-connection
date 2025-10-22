@@ -21,7 +21,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '16'
+          node-version: 22
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
@@ -48,7 +48,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: ['14', '16', '18', '20', '22', '24']
+        node_version: [22.x, 24.x]
 
     timeout-minutes: 5
     steps:
@@ -93,10 +93,10 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - name: Use Node.js 16
+      - name: Use Node.js 22
         uses: actions/setup-node@v6
         with:
-          node-version: 16
+          node-version: 22
       - name: Prepare Environment
         run: |
           corepack enable
@@ -106,75 +106,5 @@ jobs:
       - name: Validate dependencies
         run: |
           yarn validate:dependencies
-        env:
-          CI: true
-
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-
-    # only run for tags
-    if: contains(github.ref, 'refs/tags/')
-
-    needs:
-      - test
-      - lint
-
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Use Node.js 16
-        uses: actions/setup-node@v6
-        with:
-          node-version: 16
-      - name: Check release is desired
-        id: do-publish
-        run: |
-          corepack enable
-
-          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
-            echo "No Token"
-          else
-            cd packages/connector
-            PACKAGE_NAME=@mos-connection/connector
-            PUBLISHED_VERSION=$(yarn npm info --json $PACKAGE_NAME | jq -c '.version' -r)
-            THIS_VERSION=$(node -p "require('./package.json').version")
-            # Simple bash helper to comapre version numbers
-            verlte() {
-              [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
-            }
-            verlt() {
-              [ "$1" = "$2" ] && return 1 || verlte $1 $2
-            }
-            if verlt $PUBLISHED_VERSION $THIS_VERSION
-            then
-              echo "Publishing latest"
-              echo "tag=latest" >> $GITHUB_OUTPUT
-            else
-              echo "Publishing hotfix"
-              echo "tag=hotfix" >> $GITHUB_OUTPUT
-            fi
-
-          fi
-      - name: Prepare Environment
-        if: ${{ steps.do-publish.outputs.tag }}
-        run: |
-          yarn install
-        env:
-          CI: true
-      - name: Build
-        if: ${{ steps.do-publish.outputs.tag }}
-        run: |
-          yarn build
-        env:
-          CI: true
-      - name: Publish to NPM
-        if: ${{ steps.do-publish.outputs.tag }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
-          yarn lerna publish from-package --tag-version-prefix='' --dist-tag ${{ steps.do-publish.outputs.tag }} --yes --no-verify-access
         env:
           CI: true

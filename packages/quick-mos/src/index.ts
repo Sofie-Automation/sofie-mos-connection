@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
 import * as chokidar from 'chokidar'
 
 import * as fs from 'fs'
@@ -16,9 +15,9 @@ import {
 	IMOSObjectAirStatus,
 	getMosTypes,
 } from '@mos-connection/connector'
-import { diffLists, ListEntry, OperationType } from './mosDiff'
+import { diffLists, ListEntry, OperationType } from './mosDiff.js'
 import * as crypto from 'crypto'
-import { convertFromSofieSnapshot } from './convertFromSofieSnapshot'
+import { convertFromSofieSnapshot } from './convertFromSofieSnapshot.js'
 
 console.log('Starting Quick-MOS')
 
@@ -82,7 +81,7 @@ function triggerReload() {
 }
 function loadFile(requirePath: string): any {
 	delete require.cache[require.resolve(requirePath)]
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
+	// eslint-disable-next-line @typescript-eslint/no-require-imports
 	const content = require(requirePath)
 
 	return content

@@ -1,27 +1,10 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "lib": [
-      "es2020"
-    ],
-    "declaration": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "types": [
-      "node"
-    ],
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+	"extends": "./tsconfig.build.json",
+	"include": ["src/**/*.ts", "examples/**/*.ts"],
+	"exclude": ["node_modules/**", "scratch/**"],
+	"references": [
+		{
+			"path": "../connector"
+		}
+	]
 }

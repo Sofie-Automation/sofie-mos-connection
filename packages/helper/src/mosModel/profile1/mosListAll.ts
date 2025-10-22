@@ -1,7 +1,7 @@
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
 import { IMOSObject } from '@mos-connection/model'
-import { XMLMosObject } from '../profile1/xmlConversion'
+import { XMLMosObject } from '../profile1/xmlConversion.js'
 
 export class MosListAll extends MosMessage {
 	objs: Array<IMOSObject>

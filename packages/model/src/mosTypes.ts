@@ -1,11 +1,11 @@
-import * as MosString128 from './mosTypes/mosString128'
-import * as MosDuration from './mosTypes/mosDuration'
-import * as MosTime from './mosTypes/mosTime'
-import { AnyXMLValue } from './xmlParse'
+import * as MosString128 from './mosTypes/mosString128.js'
+import * as MosDuration from './mosTypes/mosDuration.js'
+import * as MosTime from './mosTypes/mosTime.js'
+import { AnyXMLValue } from './xmlParse.js'
 
-export { IMOSString128 } from './mosTypes/mosString128'
-export { IMOSDuration } from './mosTypes/mosDuration'
-export { IMOSTime } from './mosTypes/mosTime'
+export { IMOSString128 } from './mosTypes/mosString128.js'
+export { IMOSDuration } from './mosTypes/mosDuration.js'
+export { IMOSTime } from './mosTypes/mosTime.js'
 
 /**
  * Returns utility-functions for handling of MosTypes.

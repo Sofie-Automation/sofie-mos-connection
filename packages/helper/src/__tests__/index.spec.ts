@@ -1,4 +1,5 @@
-import * as MOS from '../index'
+import * as MOS from '../index.js'
+import { describe, test, expect } from 'vitest'
 
 describe('Index', () => {
 	test('ensure that types and enums are exposed', () => {

@@ -1,4 +1,4 @@
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
 
 export class MosReqSearchableSchema extends MosMessage {

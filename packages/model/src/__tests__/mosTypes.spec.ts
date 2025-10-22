@@ -1,4 +1,5 @@
-import { getMosTypes, stringifyMosType } from '../mosTypes'
+import { getMosTypes, stringifyMosType } from '../mosTypes.js'
+import { describe, test, expect } from 'vitest'
 
 describe('mosTypes', () => {
 	test('getMosTypes', () => {

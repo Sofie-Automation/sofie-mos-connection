@@ -22,7 +22,7 @@ import {
 	IMOSStoryStatus,
 	IMOSString128,
 } from '@mos-connection/model'
-import { MosDevice } from './MosDevice'
+import { MosDevice } from './MosDevice.js'
 
 /*
 	This file defines the API for the MOS-connection.

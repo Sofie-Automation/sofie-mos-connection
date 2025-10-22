@@ -6,12 +6,12 @@ import {
 	IMOSListMachInfoDefaultActiveXMode,
 	IMOSString128,
 } from '@mos-connection/model'
-import { has, omitUndefined } from '../lib'
-import { ensureArray, ensureStringLiteral, ensureXMLObject } from '../../utils/ensureMethods'
-import { addTextElementInternal } from '../../utils/Utils'
-import { getParseMosTypes, getXMLAttributes } from '../parseMosTypes'
-import { XMLMosExternalMetaData } from '../profile1'
-import { ParseError } from '../ParseError'
+import { has, omitUndefined } from '../lib.js'
+import { ensureArray, ensureStringLiteral, ensureXMLObject } from '../../utils/ensureMethods.js'
+import { addTextElementInternal } from '../../utils/Utils.js'
+import { getParseMosTypes, getXMLAttributes } from '../parseMosTypes.js'
+import { XMLMosExternalMetaData } from '../profile1/index.js'
+import { ParseError } from '../ParseError.js'
 
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace XMLMosIDs {

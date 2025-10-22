@@ -1,7 +1,7 @@
 import { IMOSListMachInfo } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
-import { XMLMosListMachInfo } from './xmlConversion'
+import { XMLMosListMachInfo } from './xmlConversion.js'
 
 export class ListMachineInfo extends MosMessage {
 	info: IMOSListMachInfo

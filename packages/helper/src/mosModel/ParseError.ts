@@ -10,7 +10,7 @@
 
 */
 
-export class ParseError {
+export class ParseError extends Error {
 	static handleCaughtError(basePath: string, e: unknown): ParseError {
 		if (ParseError.isParseError(e)) {
 			e.addBreadcrumb(basePath)
@@ -41,14 +41,14 @@ export class ParseError {
 	}
 
 	public name = 'ParseError'
-	public message: string
-	public stack: string | undefined = undefined
 
 	public orgMessage: string
 	public orgStack: string | undefined = undefined
 	public breadcrumbs: string[] = []
 
 	private constructor(path: string, message: string, stack?: string) {
+		super('')
+
 		this.orgMessage = message.replace(/^Error: /, '')
 		this.message = '' // Updated in updateVars()
 		this.orgStack = `${stack ?? new Error(message).stack}`.replace(/^Error: /, '')

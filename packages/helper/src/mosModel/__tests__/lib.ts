@@ -1,4 +1,4 @@
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 
 export function getXMLString(msg: MosMessage): string {
 	// <mos>

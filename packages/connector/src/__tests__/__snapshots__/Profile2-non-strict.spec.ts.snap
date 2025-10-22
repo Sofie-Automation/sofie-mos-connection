@@ -1,6 +1,26 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Profile 2 - non strict deprecated messages roStoryMove - missing second <storyID> 1`] = `
+exports[`Profile 2 - non strict > deprecated messages > roStoryMove - missing second <storyID> > <mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>1633</messageID>
+  <roAck>
+    <roID>runningOrderId</roID>
+    <roStatus>OK</roStatus>
+  </roAck>
+</mos> 1`] = `
+"<mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>1633</messageID>
+  <roAck>
+    <roID>runningOrderId</roID>
+    <roStatus>OK</roStatus>
+  </roAck>
+</mos>"
+`;
+
+exports[`Profile 2 - non strict > deprecated messages > roStoryMove - missing second <storyID> 1`] = `
 [
   [
     {
@@ -20,10 +40,10 @@ exports[`Profile 2 - non strict deprecated messages roStoryMove - missing second
 ]
 `;
 
-exports[`Profile 2 - non strict deprecated messages roStoryMove - missing second <storyID>: <mos>
+exports[`Profile 2 - non strict > deprecated messages > roStoryMoveMultiple with single storyId > <mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
-  <messageID>1633</messageID>
+  <messageID>1634</messageID>
   <roAck>
     <roID>runningOrderId</roID>
     <roStatus>OK</roStatus>
@@ -32,7 +52,7 @@ exports[`Profile 2 - non strict deprecated messages roStoryMove - missing second
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
-  <messageID>1633</messageID>
+  <messageID>1634</messageID>
   <roAck>
     <roID>runningOrderId</roID>
     <roStatus>OK</roStatus>
@@ -40,7 +60,7 @@ exports[`Profile 2 - non strict deprecated messages roStoryMove - missing second
 </mos>"
 `;
 
-exports[`Profile 2 - non strict deprecated messages roStoryMoveMultiple with single storyId 1`] = `
+exports[`Profile 2 - non strict > deprecated messages > roStoryMoveMultiple with single storyId 1`] = `
 [
   [
     {
@@ -58,24 +78,4 @@ exports[`Profile 2 - non strict deprecated messages roStoryMoveMultiple with sin
     ],
   ],
 ]
-`;
-
-exports[`Profile 2 - non strict deprecated messages roStoryMoveMultiple with single storyId: <mos>
-  <ncsID>their.mos.id</ncsID>
-  <mosID>our.mos.id</mosID>
-  <messageID>1634</messageID>
-  <roAck>
-    <roID>runningOrderId</roID>
-    <roStatus>OK</roStatus>
-  </roAck>
-</mos> 1`] = `
-"<mos>
-  <ncsID>their.mos.id</ncsID>
-  <mosID>our.mos.id</mosID>
-  <messageID>1634</messageID>
-  <roAck>
-    <roID>runningOrderId</roID>
-    <roStatus>OK</roStatus>
-  </roAck>
-</mos>"
 `;

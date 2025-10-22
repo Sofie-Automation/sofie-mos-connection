@@ -1,25 +1,28 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IMOSAck, MosConnection, MosDevice, IMOSROAck, IProfiles, getMosTypes } from '../'
+import { IMOSAck, MosConnection, MosDevice, IMOSROAck, IProfiles, getMosTypes } from '../index.js'
 
-import { SocketMock } from '../__mocks__/socket'
-import { IServerMock, ServerMock } from '../__mocks__/server'
+import { SocketMock } from '../__mocks__/socket.js'
+import { IServerMock, ServerMock } from '../__mocks__/server.js'
 // @ts-ignore imports are unused
 import { Socket, Server } from 'net'
 import { xml2js } from 'xml-js'
 
 import * as iconv from 'iconv-lite'
-import { NCSServerConnection } from '../connection/NCSServerConnection'
+import { NCSServerConnection } from '../connection/NCSServerConnection.js'
+import { expect, vitest } from 'vitest'
 iconv.encodingExists('utf16-be')
 
 // breaks net.Server, disabled for now
-jest.mock('net')
+vitest.mock('net')
 
 export function setupMocks(): void {
 	// Mock tcp connection
 	// @ts-ignore Replace Socket with the mocked varaint:
+	// eslint-disable-next-line no-import-assign
 	Socket = SocketMock
 	// @ts-ignore Replace Server with the mocked varaint:
+	// eslint-disable-next-line no-import-assign
 	Server = ServerMock
 
 	/* eslint-enable @typescript-eslint/no-unused-vars */
@@ -289,7 +292,7 @@ function fixSnapshotInner(data: any): [boolean, any] {
 			}
 			// changed = true
 		} else {
-			for (const [key, value] of Object.entries(data)) {
+			for (const [key, value] of Object.entries<any>(data)) {
 				const f = fixSnapshotInner(value)
 				if (f[0]) {
 					changed = true

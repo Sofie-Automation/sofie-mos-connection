@@ -1,4 +1,4 @@
-// /* eslint-disable node/no-unpublished-require */
+// /* eslint-disable n/no-unpublished-require */
 import { promisify } from 'util'
 import globOrg from 'glob'
 import deepExtend from 'deep-extend'

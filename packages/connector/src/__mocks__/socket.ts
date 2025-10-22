@@ -3,8 +3,9 @@ import { EventEmitter } from 'events'
 import { Socket } from 'net'
 
 import * as iconv from 'iconv-lite'
-import { getMessageId } from '../__tests__/lib'
+import { getMessageId } from '../__tests__/lib.js'
 import { getMosTypes } from '@mos-connection/model'
+import { Mocked, vitest } from 'vitest'
 iconv.encodingExists('utf16-be')
 
 const mosTypes = getMosTypes(true)
@@ -60,35 +61,35 @@ export class SocketMock extends EventEmitter implements Socket {
 		instances.push(this)
 
 		// Wrap member functions in mocks:
-		this.connect = jest.fn(this.connect)
-		this.setEncoding = jest.fn(this.setEncoding)
-		this.destroy = jest.fn(this.destroy)
-		this.pause = jest.fn(this.pause)
-		this.resume = jest.fn(this.resume)
-		this.setTimeout = jest.fn(this.setTimeout)
-		this.setNoDelay = jest.fn(this.setNoDelay)
-		this.setKeepAlive = jest.fn(this.setKeepAlive)
-		this.address = jest.fn(this.address)
-		this.unref = jest.fn(this.unref)
-		this.ref = jest.fn(this.ref)
-		this.end = jest.fn(this.end)
-		this._write = jest.fn(this._write)
-		this.setDefaultEncoding = jest.fn(this.setDefaultEncoding)
-		this._read = jest.fn(this._read)
-		this.read = jest.fn(this.read)
-		this.isPaused = jest.fn(this.isPaused)
-		this.pipe = jest.fn(this.pipe)
-		this.unpipe = jest.fn(this.unpipe)
-		this.unshift = jest.fn(this.unshift)
-		this.wrap = jest.fn(this.wrap)
-		this.push = jest.fn(this.push)
-		this._destroy = jest.fn(this._destroy)
-		this._final = jest.fn(this._final)
-		this.cork = jest.fn(this.cork)
-		this.uncork = jest.fn(this.uncork)
+		this.connect = vitest.fn(this.connect)
+		this.setEncoding = vitest.fn(this.setEncoding)
+		this.destroy = vitest.fn(this.destroy)
+		this.pause = vitest.fn(this.pause)
+		this.resume = vitest.fn(this.resume)
+		this.setTimeout = vitest.fn(this.setTimeout)
+		this.setNoDelay = vitest.fn(this.setNoDelay)
+		this.setKeepAlive = vitest.fn(this.setKeepAlive)
+		this.address = vitest.fn(this.address)
+		this.unref = vitest.fn(this.unref)
+		this.ref = vitest.fn(this.ref)
+		this.end = vitest.fn(this.end)
+		this._write = vitest.fn(this._write)
+		this.setDefaultEncoding = vitest.fn(this.setDefaultEncoding)
+		this._read = vitest.fn(this._read)
+		this.read = vitest.fn(this.read)
+		this.isPaused = vitest.fn(this.isPaused)
+		this.pipe = vitest.fn(this.pipe) as any
+		this.unpipe = vitest.fn(this.unpipe)
+		this.unshift = vitest.fn(this.unshift)
+		this.wrap = vitest.fn(this.wrap)
+		this.push = vitest.fn(this.push)
+		this._destroy = vitest.fn(this._destroy)
+		this._final = vitest.fn(this._final)
+		this.cork = vitest.fn(this.cork)
+		this.uncork = vitest.fn(this.uncork)
 
-		this.mockSentMessage0 = jest.fn(this.mockSentMessage0)
-		this.mockSentMessage = jest.fn(this.mockSentMessage)
+		this.mockSentMessage0 = vitest.fn(this.mockSentMessage0)
+		this.mockSentMessage = vitest.fn(this.mockSentMessage)
 	}
 	static mockClear(): void {
 		instances.splice(0, 9999)
@@ -261,7 +262,7 @@ export class SocketMock extends EventEmitter implements Socket {
 		this._responses.push(cb)
 	}
 	mockClear(): void {
-		this._responses.splice(0, 9999)
+		void this._responses.splice(0, 9999)
 		// @ts-expect-error mock hack
 		this.mockSentMessage0['mockClear']()
 		// @ts-expect-error mock hack
@@ -304,4 +305,4 @@ type ReplyTypes =
 	| Promise<SimpleTypes>
 	| ((data: any) => Promise<SimpleTypes>)
 
-export type ISocketMock = jest.Mocked<SocketMock>
+export type ISocketMock = Mocked<SocketMock>

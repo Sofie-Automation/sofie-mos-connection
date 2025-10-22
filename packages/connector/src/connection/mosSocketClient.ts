@@ -1,10 +1,10 @@
 import { EventEmitter } from 'eventemitter3'
 import { Socket } from 'net'
-import { SocketConnectionEvent } from './socketConnection'
+import { SocketConnectionEvent } from './socketConnection.js'
 import { MosModel } from '@mos-connection/helper'
-import { DEFAULT_COMMAND_TIMEOUT, HandedOverQueue } from './NCSServerConnection'
+import { DEFAULT_COMMAND_TIMEOUT, HandedOverQueue } from './NCSServerConnection.js'
 import * as iconv from 'iconv-lite'
-import { ParsedMosMessage, MosMessageParser } from './mosMessageParser'
+import { ParsedMosMessage, MosMessageParser } from './mosMessageParser.js'
 
 export type CallBackFunction = (data: { error: Error | string } | { reply: ParsedMosMessage }) => void
 
@@ -444,8 +444,8 @@ export class MosSocketClient extends EventEmitter<MosSocketClientEvents> {
 				) {
 					this._sendReply(this._sentMessage.msg.messageID, { reply: parsedData })
 				} else {
-					this.debugTrace('Mos Error message:' + parsedData.mos.mosAck.statusDescription)
-					this.emit('error', new Error('Error message: ' + parsedData.mos.mosAck.statusDescription))
+					this.debugTrace(`Mos Error message: ${parsedData.mos.mosAck.statusDescription as string}`)
+					this.emit('error', new Error(`Error message: ${parsedData.mos.mosAck.statusDescription as string}`))
 				}
 			} else {
 				// unknown message..

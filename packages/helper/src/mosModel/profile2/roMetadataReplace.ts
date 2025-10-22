@@ -1,10 +1,13 @@
 import * as XMLBuilder from 'xmlbuilder'
 import { IMOSRunningOrderBase } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
-import { XMLRunningOrderBase } from './xmlConversion'
+import { MosMessage } from '../MosMessage.js'
+import { XMLRunningOrderBase } from './xmlConversion.js'
 
 export class ROMetadataReplace extends MosMessage {
-	constructor(private metadata: IMOSRunningOrderBase, strict: boolean) {
+	constructor(
+		private metadata: IMOSRunningOrderBase,
+		strict: boolean
+	) {
 		super('upper', strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {

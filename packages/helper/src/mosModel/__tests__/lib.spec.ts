@@ -1,4 +1,5 @@
-import { flattenXMLText } from '../lib'
+import { flattenXMLText } from '../lib.js'
+import { describe, test, expect } from 'vitest'
 
 describe('lib', () => {
 	test('flattenXMLText', () => {

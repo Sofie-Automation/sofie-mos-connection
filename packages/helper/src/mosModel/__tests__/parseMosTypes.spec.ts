@@ -1,5 +1,6 @@
 import { AnyXMLValue, AnyXMLValueSingular, IMOSObjectType } from '@mos-connection/model'
-import { getParseMosTypes } from '../parseMosTypes'
+import { getParseMosTypes } from '../parseMosTypes.js'
+import { describe, test, expect } from 'vitest'
 
 describe('parseMosTypes', () => {
 	test('createRequired types', () => {
@@ -59,7 +60,9 @@ describe('parseMosTypes', () => {
 	test('stringEnum', () => {
 		const parseMosTypes = getParseMosTypes(true)
 
-		expect(parseMosTypes.stringEnum.createRequired({ value: 'STILL', enum: IMOSObjectType }, '')).toBe
+		expect(parseMosTypes.stringEnum.createRequired({ value: 'STILL', enum: IMOSObjectType }, '')).toBe(
+			IMOSObjectType.STILL
+		)
 
 		expect(() => {
 			parseMosTypes.stringEnum.createRequired({ value: 'wrongValue', enum: IMOSObjectType }, '')

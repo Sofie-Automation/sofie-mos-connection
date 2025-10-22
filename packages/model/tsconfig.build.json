@@ -1,9 +1,22 @@
 {
-    "extends": "../../tsconfig.build.json",
-    "include": [
-        "src/**/*.ts"
-    ],
-    "compilerOptions": {
-        "outDir": "./dist",
-    }
+	"extends": "@sofie-automation/code-standard-preset/ts/tsconfig.lib",
+	"include": ["src/**/*.ts"],
+	"exclude": [
+		"node_modules/**",
+		"dist/**",
+		"src/**/*spec.ts",
+		"src/**/__tests__/*",
+		"src/**/__mocks__/*",
+		"scratch/**"
+	],
+	"compilerOptions": {
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"baseUrl": "./",
+		"composite": true,
+		"paths": {
+			"*": ["./node_modules/*"]
+		},
+		"types": ["node"]
+	}
 }

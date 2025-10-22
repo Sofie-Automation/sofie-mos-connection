@@ -18,10 +18,10 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - name: Use Node.js 16
+      - name: Use Node.js 22
         uses: actions/setup-node@v6
         with:
-          node-version: 16
+          node-version: 22
       - name: Prepare Environment
         run: |
           corepack enable
@@ -33,6 +33,7 @@ jobs:
           yarn validate:dependencies
         env:
           CI: true
+
   validate-all-dependencies:
     name: Validate all dependencies
     runs-on: ubuntu-latest
@@ -43,10 +44,10 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
-      - name: Use Node.js 16
+      - name: Use Node.js 22
         uses: actions/setup-node@v6
         with:
-          node-version: 16
+          node-version: 22
       - name: Prepare Environment
         run: |
           corepack enable

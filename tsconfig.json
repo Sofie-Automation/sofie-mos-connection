@@ -1,12 +1,23 @@
 {
-	"extends": "./tsconfig.build.json",
-	"exclude": [
-		"**/node_modules/**"
-	],
-	"compilerOptions": {
-		"types": [
-			"jest",
-			"node"
-		]
-	}
+	"files": [],
+	"references": [
+		{
+			"path": "./packages/connector/tsconfig.json"
+		},
+		{
+			"path": "./packages/helper/tsconfig.json"
+		},
+		{
+			"path": "./packages/model/tsconfig.json"
+		},
+		{
+			"path": "./packages/examples/tsconfig.json"
+		},
+		{
+			"path": "./packages/mos-dummy-device/tsconfig.json"
+		},
+		{
+			"path": "./packages/quick-mos/tsconfig.json"
+		}
+	]
 }

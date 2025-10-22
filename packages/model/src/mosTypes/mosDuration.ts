@@ -1,4 +1,4 @@
-import { pad } from './lib'
+import { pad } from './lib.js'
 
 export interface IMOSDuration {
 	_mosDuration: number // in seconds

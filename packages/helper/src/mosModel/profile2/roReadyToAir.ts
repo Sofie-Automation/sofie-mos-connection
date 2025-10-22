@@ -1,7 +1,7 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import { IMOSString128 } from '@mos-connection/model'
-import { addTextElementInternal } from '../../utils/Utils'
+import { addTextElementInternal } from '../../utils/Utils.js'
 
 // https://mosprotocol.com/wp-content/MOS-Protocol-Documents/MOS-Protocol-2.8.4-Current.htm#roReadyToAir
 

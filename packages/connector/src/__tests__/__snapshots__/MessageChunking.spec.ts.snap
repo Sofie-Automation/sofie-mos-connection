@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`message chunking chunk around space 1`] = `
+exports[`message chunking > chunk around space 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -11,7 +11,7 @@ exports[`message chunking chunk around space 1`] = `
 </mos>"
 `;
 
-exports[`message chunking chunk around space 2`] = `
+exports[`message chunking > chunk around space 2`] = `
 {
   "ID": {
     "_mosString128": "96857485",
@@ -120,7 +120,7 @@ exports[`message chunking chunk around space 2`] = `
 }
 `;
 
-exports[`message chunking chunks 1`] = `
+exports[`message chunking > chunks 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -131,7 +131,7 @@ exports[`message chunking chunks 1`] = `
 </mos>"
 `;
 
-exports[`message chunking chunks 2`] = `
+exports[`message chunking > chunks 2`] = `
 {
   "ID": {
     "_mosString128": "96857485",
@@ -240,7 +240,7 @@ exports[`message chunking chunks 2`] = `
 }
 `;
 
-exports[`message chunking junk data before 1`] = `
+exports[`message chunking > junk data before 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -251,7 +251,7 @@ exports[`message chunking junk data before 1`] = `
 </mos>"
 `;
 
-exports[`message chunking junk data before 2`] = `
+exports[`message chunking > junk data before 2`] = `
 {
   "ID": {
     "_mosString128": "96857485",
@@ -360,7 +360,7 @@ exports[`message chunking junk data before 2`] = `
 }
 `;
 
-exports[`message chunking junk data packet before 1`] = `
+exports[`message chunking > junk data packet before 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -371,7 +371,7 @@ exports[`message chunking junk data packet before 1`] = `
 </mos>"
 `;
 
-exports[`message chunking junk data packet before 2`] = `
+exports[`message chunking > junk data packet before 2`] = `
 {
   "ID": {
     "_mosString128": "96857485",

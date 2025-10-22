@@ -1,7 +1,7 @@
 import { IMOSObject } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
-import { XMLMosObject } from '../profile1/xmlConversion'
+import { XMLMosObject } from '../profile1/xmlConversion.js'
 
 // https://mosprotocol.com/wp-content/MOS-Protocol-Documents/MOS-Protocol-2.8.4-Current.htm#mosObjCreate
 export class MosObjCreate extends MosMessage {

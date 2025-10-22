@@ -5,8 +5,8 @@ import {
 	IMOSDuration,
 	IMOSTime,
 	getMosTypes,
-} from '../../../../helper/src'
-import {} from '../stringifyMosObject'
+} from '../../../../helper/src/index.js'
+import { describe, test, expect } from 'vitest'
 
 function assertTypes<_A extends _B, _B>(): void {
 	// nothing, just a type check
@@ -37,7 +37,7 @@ describe('stringifyMosObject', () => {
 					time: IMOSTime
 					num: number
 					date: Date
-				}
+				},
 			]
 		}
 		type Astr = {
@@ -63,7 +63,7 @@ describe('stringifyMosObject', () => {
 					time: string
 					num: number
 					date: Date
-				}
+				},
 			]
 		}
 

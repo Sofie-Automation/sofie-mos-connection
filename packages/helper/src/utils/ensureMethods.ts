@@ -1,5 +1,5 @@
 import { AnyXMLObject, AnyXMLValue, AnyXMLValueSingular } from '@mos-connection/model'
-import { assertStringLiteral, isEmpty } from '../mosModel/lib'
+import { assertStringLiteral, isEmpty } from '../mosModel/lib.js'
 
 /**
  * Ensures that the returned value is an array.

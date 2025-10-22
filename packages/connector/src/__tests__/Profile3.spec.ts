@@ -14,7 +14,7 @@ import {
 	getXMLReply,
 	mosTypes,
 	setupMocks,
-} from './lib'
+} from './lib.js'
 import {
 	IMOSAck,
 	MosConnection,
@@ -28,10 +28,11 @@ import {
 	IMOSObjectType,
 	IMOSObjectStatus,
 	IMOSObjectAirStatus,
-} from '..'
-import { SocketMock } from '../__mocks__/socket'
-import { ServerMock } from '../__mocks__/server'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
+} from '../index.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { ServerMock } from '../__mocks__/server.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
+import { describe, test, expect, beforeAll, beforeEach, afterAll, MockedFunction, vitest } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore imports are unused
@@ -55,13 +56,13 @@ describe('Profile 3', () => {
 	let serverSocketMockUpper: SocketMock
 	let serverSocketMockQuery: SocketMock
 
-	let onMosObjCreate: jest.Mock<any, any>
-	let onMosItemReplace: jest.Mock<any, any>
-	let onMosReqSearchableSchema: jest.Mock<any, any>
-	let onMosReqObjectList: jest.Mock<any, any>
-	let onRequestObjectActionNew: jest.Mock<any, any>
-	let onRequestObjectActionUpdate: jest.Mock<any, any>
-	let onRequestObjectActionDelete: jest.Mock<any, any>
+	let onMosObjCreate: MockedFunction<any>
+	let onMosItemReplace: MockedFunction<any>
+	let onMosReqSearchableSchema: MockedFunction<(username: string) => Promise<IMOSListSearchableSchema>>
+	let onMosReqObjectList: MockedFunction<(options: IMOSRequestObjectList) => Promise<IMOSObjectList>>
+	let onRequestObjectActionNew: MockedFunction<any>
+	let onRequestObjectActionUpdate: MockedFunction<any>
+	let onRequestObjectActionDelete: MockedFunction<any>
 
 	const roAckReply = async () => {
 		const ack: IMOSROAck = {
@@ -99,16 +100,16 @@ describe('Profile 3', () => {
 
 		// Profile 3:
 
-		onMosObjCreate = jest.fn(mosAckReply)
-		onMosItemReplace = jest.fn(roAckReply)
-		onMosReqSearchableSchema = jest.fn(async (username: string) => {
+		onMosObjCreate = vitest.fn(mosAckReply)
+		onMosItemReplace = vitest.fn(roAckReply)
+		onMosReqSearchableSchema = vitest.fn(async (username: string) => {
 			const response: IMOSListSearchableSchema = {
 				username,
 				mosSchema: 'https://example.com/mosSearchableSchema',
 			}
 			return response
 		})
-		onMosReqObjectList = jest.fn(async (options: IMOSRequestObjectList) => {
+		onMosReqObjectList = vitest.fn(async (options: IMOSRequestObjectList) => {
 			const response: IMOSObjectList = {
 				username: options.username,
 				queryID: 'A392938329kdakd2039300d0s9l3l9d0bzAQ',
@@ -118,9 +119,9 @@ describe('Profile 3', () => {
 			}
 			return response
 		})
-		onRequestObjectActionNew = jest.fn(mosAckReply)
-		onRequestObjectActionUpdate = jest.fn(mosAckReply)
-		onRequestObjectActionDelete = jest.fn(mosAckReply)
+		onRequestObjectActionNew = vitest.fn(mosAckReply)
+		onRequestObjectActionUpdate = vitest.fn(mosAckReply)
+		onRequestObjectActionDelete = vitest.fn(mosAckReply)
 
 		mosDevice.onObjectCreate((obj: IMOSObject) => {
 			return onMosObjCreate(obj)
@@ -128,10 +129,10 @@ describe('Profile 3', () => {
 		mosDevice.onItemReplace((roID, storyID, item) => {
 			return onMosItemReplace(roID, storyID, item)
 		})
-		mosDevice.onRequestSearchableSchema((username) => {
+		mosDevice.onRequestSearchableSchema(async (username) => {
 			return onMosReqSearchableSchema(username)
 		})
-		mosDevice.onRequestObjectList((options: IMOSRequestObjectList) => {
+		mosDevice.onRequestObjectList(async (options: IMOSRequestObjectList) => {
 			return onMosReqObjectList(options)
 		})
 		mosDevice.onRequestObjectActionNew((obj) => {
@@ -187,7 +188,7 @@ describe('Profile 3', () => {
 	})
 	test('mosObjCreate', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosAck))
@@ -217,7 +218,7 @@ describe('Profile 3', () => {
 	})
 	test('mosItemReplace', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.roAck))
@@ -255,7 +256,7 @@ describe('Profile 3', () => {
 	})
 	test('mosReqSearchableSchema', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosListSearchableSchema))
@@ -282,7 +283,7 @@ describe('Profile 3', () => {
 	})
 	test('mosRequestObjectList', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosObjList))
@@ -343,7 +344,7 @@ describe('Profile 3', () => {
 	})
 	test('sendMosReqObjectActionNew', async () => {
 		// Prepare server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosAck))
@@ -363,7 +364,7 @@ describe('Profile 3', () => {
 	})
 	test('sendMosReqObjectActionUpdateUpdate', async () => {
 		// Prepare server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosAck))
@@ -383,7 +384,7 @@ describe('Profile 3', () => {
 	})
 	test('sendMosReqObjectActionUpdateDelete', async () => {
 		// Prepare server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosAck))
@@ -398,7 +399,7 @@ describe('Profile 3', () => {
 	})
 	test('sendRunningOrderStory', async () => {
 		// Prepare server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.roAck))

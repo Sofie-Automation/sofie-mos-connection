@@ -15,7 +15,7 @@ import {
 	getXMLReply,
 	mosTypes,
 	setupMocks,
-} from './lib'
+} from './lib.js'
 import {
 	MosConnection,
 	MosDevice,
@@ -36,11 +36,12 @@ import {
 	IMOSObjectAirStatus,
 	IMOSScope,
 	IMOSString128,
-} from '..'
-import { SocketMock } from '../__mocks__/socket'
-import { ServerMock } from '../__mocks__/server'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
+} from '../index.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { ServerMock } from '../__mocks__/server.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
 import { xml2js } from 'xml-js'
+import { describe, test, expect, beforeAll, beforeEach, afterAll, MockedFunction, vitest } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore imports are unused
@@ -64,32 +65,32 @@ describe('Profile 2', () => {
 	let serverSocketMockUpper: SocketMock
 	let serverSocketMockQuery: SocketMock
 
-	let onRequestMachineInfo: jest.Mock<any, any>
-	let onRequestMOSObject: jest.Mock<any, any>
-	let onRequestAllMOSObjects: jest.Mock<any, any>
-	let onMOSObjects: jest.Mock<any, any>
+	let onRequestMachineInfo: MockedFunction<any>
+	let onRequestMOSObject: MockedFunction<any>
+	let onRequestAllMOSObjects: MockedFunction<any>
+	let onMOSObjects: MockedFunction<any>
 
-	let onCreateRunningOrder: jest.Mock<any, any>
-	let onReplaceRunningOrder: jest.Mock<any, any>
-	let onDeleteRunningOrder: jest.Mock<any, any>
-	let onRequestRunningOrder: jest.Mock<any, any>
-	let onMetadataReplace: jest.Mock<any, any>
-	let onRunningOrderStatus: jest.Mock<any, any>
-	let onStoryStatus: jest.Mock<any, any>
-	let onItemStatus: jest.Mock<any, any>
-	let onReadyToAir: jest.Mock<any, any>
-	let onROInsertStories: jest.Mock<any, any>
-	let onROInsertItems: jest.Mock<any, any>
-	let onROReplaceStories: jest.Mock<any, any>
-	let onROReplaceItems: jest.Mock<any, any>
-	let onROMoveStories: jest.Mock<any, any>
-	let onROMoveItems: jest.Mock<any, any>
-	let onRODeleteStories: jest.Mock<any, any>
-	let onRODeleteItems: jest.Mock<any, any>
-	let onROSwapStories: jest.Mock<any, any>
-	let onROSwapItems: jest.Mock<any, any>
+	let onCreateRunningOrder: MockedFunction<any>
+	let onReplaceRunningOrder: MockedFunction<any>
+	let onDeleteRunningOrder: MockedFunction<any>
+	let onRequestRunningOrder: MockedFunction<any>
+	let onMetadataReplace: MockedFunction<any>
+	let onRunningOrderStatus: MockedFunction<any>
+	let onStoryStatus: MockedFunction<any>
+	let onItemStatus: MockedFunction<any>
+	let onReadyToAir: MockedFunction<any>
+	let onROInsertStories: MockedFunction<any>
+	let onROInsertItems: MockedFunction<any>
+	let onROReplaceStories: MockedFunction<any>
+	let onROReplaceItems: MockedFunction<any>
+	let onROMoveStories: MockedFunction<any>
+	let onROMoveItems: MockedFunction<any>
+	let onRODeleteStories: MockedFunction<any>
+	let onRODeleteItems: MockedFunction<any>
+	let onROSwapStories: MockedFunction<any>
+	let onROSwapItems: MockedFunction<any>
 
-	const mockReplyRoAck = jest.fn((data) => {
+	const mockReplyRoAck = vitest.fn((data) => {
 		const str = decode(data)
 		const messageID = getMessageId(str)
 		return encode(getXMLReply(messageID, xmlData.roAck))
@@ -110,15 +111,15 @@ describe('Profile 2', () => {
 		mosDevice = await getMosDevice(mosConnection)
 
 		// Profile 0:
-		onRequestMachineInfo = jest.fn(async () => {
+		onRequestMachineInfo = vitest.fn(async () => {
 			return xmlApiData.machineInfo
 		})
 		mosDevice.onRequestMachineInfo(async (): Promise<IMOSListMachInfo> => {
 			return onRequestMachineInfo()
 		})
 		// Profile 1:
-		onRequestMOSObject = jest.fn()
-		onRequestAllMOSObjects = jest.fn()
+		onRequestMOSObject = vitest.fn()
+		onRequestAllMOSObjects = vitest.fn()
 		mosDevice.onRequestMOSObject(async (objId: string): Promise<IMOSObject | null> => {
 			return onRequestMOSObject(objId)
 		})
@@ -128,7 +129,7 @@ describe('Profile 2', () => {
 		mosDevice.onRequestAllMOSObjects(async (): Promise<Array<IMOSObject>> => {
 			return onRequestAllMOSObjects()
 		})
-		onMOSObjects = jest.fn(async (): Promise<IMOSAck> => {
+		onMOSObjects = vitest.fn(async (): Promise<IMOSAck> => {
 			return {
 				ID: mosTypes.mosString128.create(''),
 				Revision: 1,
@@ -149,27 +150,27 @@ describe('Profile 2', () => {
 			}
 			return ack
 		}
-		onCreateRunningOrder = jest.fn(roAckReply)
-		onReplaceRunningOrder = jest.fn(roAckReply)
-		onDeleteRunningOrder = jest.fn(roAckReply)
-		onRequestRunningOrder = jest.fn(async () => {
+		onCreateRunningOrder = vitest.fn(roAckReply)
+		onReplaceRunningOrder = vitest.fn(roAckReply)
+		onDeleteRunningOrder = vitest.fn(roAckReply)
+		onRequestRunningOrder = vitest.fn(async () => {
 			return xmlApiData.roCreate
 		})
-		onMetadataReplace = jest.fn(roAckReply)
-		onRunningOrderStatus = jest.fn(roAckReply)
-		onStoryStatus = jest.fn(roAckReply)
-		onItemStatus = jest.fn(roAckReply)
-		onReadyToAir = jest.fn(roAckReply)
-		onROInsertStories = jest.fn(roAckReply)
-		onROInsertItems = jest.fn(roAckReply)
-		onROReplaceStories = jest.fn(roAckReply)
-		onROReplaceItems = jest.fn(roAckReply)
-		onROMoveStories = jest.fn(roAckReply)
-		onROMoveItems = jest.fn(roAckReply)
-		onRODeleteStories = jest.fn(roAckReply)
-		onRODeleteItems = jest.fn(roAckReply)
-		onROSwapStories = jest.fn(roAckReply)
-		onROSwapItems = jest.fn(roAckReply)
+		onMetadataReplace = vitest.fn(roAckReply)
+		onRunningOrderStatus = vitest.fn(roAckReply)
+		onStoryStatus = vitest.fn(roAckReply)
+		onItemStatus = vitest.fn(roAckReply)
+		onReadyToAir = vitest.fn(roAckReply)
+		onROInsertStories = vitest.fn(roAckReply)
+		onROInsertItems = vitest.fn(roAckReply)
+		onROReplaceStories = vitest.fn(roAckReply)
+		onROReplaceItems = vitest.fn(roAckReply)
+		onROMoveStories = vitest.fn(roAckReply)
+		onROMoveItems = vitest.fn(roAckReply)
+		onRODeleteStories = vitest.fn(roAckReply)
+		onRODeleteItems = vitest.fn(roAckReply)
+		onROSwapStories = vitest.fn(roAckReply)
+		onROSwapItems = vitest.fn(roAckReply)
 
 		mosDevice.onCreateRunningOrder(async (ro: IMOSRunningOrder): Promise<IMOSROAck> => {
 			return onCreateRunningOrder(ro)
@@ -377,7 +378,7 @@ describe('Profile 2', () => {
 	})
 	test('sendRequestRunningOrder', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roList)
@@ -396,7 +397,7 @@ describe('Profile 2', () => {
 	})
 	test('sendRequestRunningOrder - Not found', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roACKNotFound)
@@ -416,7 +417,7 @@ describe('Profile 2', () => {
 	})
 	test('sendRequestRunningOrder - not under MOS control', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roACKNoMosControl)
@@ -469,7 +470,7 @@ describe('Profile 2', () => {
 	})
 	test('sendRunningOrderStatus', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roAck)
@@ -502,7 +503,7 @@ describe('Profile 2', () => {
 	test('sendStoryStatus with missing incoming mosID', async () => {
 		// This test may seem weird, but this has been seen when talking with ENPS for specifically this operation.
 
-		const mockReplyRoAck = jest.fn((data) => {
+		const mockReplyRoAck = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.roAck, '')) // empty mosID

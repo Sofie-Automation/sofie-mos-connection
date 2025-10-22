@@ -1,5 +1,5 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 
 export class ReqMachInfo extends MosMessage {
 	/** */

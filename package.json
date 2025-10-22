@@ -1,53 +1,62 @@
 {
-	"name": "mos-connection-monorepo",
-	"version": "0.0.0",
-	"repository": "https://github.com/Sofie-Automation/sofie-mos-connection",
-	"private": true,
-	"workspaces": [
-		"packages/*"
-	],
-	"scripts": {
-		"prepare": "husky install",
-		"lerna": "lerna",
-		"postinstall": "node scripts/update-packages.mjs",
-		"ci": "run build && run lint && run test",
-		"release:set-version": "lerna version --exact --no-changelog --no-push --yes && yarn fix-version",
-		"release:bump-release": "lerna version --exact --conventional-commits --conventional-graduate --tag-version-prefix='v' --no-push --force-publish='*' && yarn fix-version",
-		"release:bump-prerelease": "lerna version --exact --conventional-commits --conventional-prerelease --tag-version-prefix='v' --no-push --force-publish='*' && yarn fix-version",
-		"release:bump-prerelease-ci": "lerna version --exact --conventional-commits --conventional-prerelease --tag-version-prefix='v' --no-push --force-publish='*'",
-		"fix-version": "node scripts/fix-version.js",
-		"setup": "lerna bootstrap",
-		"reset": "node scripts/reset.js",
-		"build": "lerna run build --stream",
-		"build:changed": "lerna run build --since head --exclude-dependents --stream",
-		"lint": "lerna exec --parallel -- run -T eslint . --ext .ts,.tsx",
-		"lintfix": "run lint --fix",
-		"lint:changed": "lerna exec --since origin/main --include-dependents -- run -T eslint . --ext .js,.jsx,.ts,.tsx",
-		"test": "lerna run test --stream",
-		"test:changed": "lerna run --since origin/main --include-dependents test",
-		"test:coverage": "lerna run test:coverage --stream",
-		"lint-staged": "./node_modules/.bin/lint-staged",
-		"prettier": "cd $INIT_CWD && \"$PROJECT_CWD/node_modules/.bin/prettier\"",
-		"eslint": "cd $INIT_CWD && \"$PROJECT_CWD/node_modules/.bin/eslint\"",
-		"validate:dependencies": "yarn lerna exec --parallel yarn validate:dependencies && yarn license-validate",
-		"validate:dev-dependencies": "yarn lerna exec --parallel yarn validate:dev-dependencies",
-		"license-validate": "yarn sofie-licensecheck --allowPackages \"mos-examples@0.0.0;quick-mos@0.0.0;mos-dummy-server@0.0.0\""
-	},
-	"devDependencies": {
-		"@sofie-automation/code-standard-preset": "2.5.1",
-		"@types/jest": "^29.5.2",
-		"deep-extend": "^0.6.0",
-		"glob": "^7.2.3",
-		"jest": "^29.5.0",
-		"lerna": "^6.6.2",
-		"lodash": "^4.17.21",
-		"rimraf": "^5.0.1",
-		"ts-jest": "^29.1.0",
-		"typescript": "~4.9.5"
-	},
-	"engines": {
-		"node": ">=14.18.0"
-	},
-	"prettier": "@sofie-automation/code-standard-preset/.prettierrc.json",
-	"packageManager": "yarn@3.6.0"
+  "name": "mos-connection-monorepo",
+  "version": "0.0.0",
+  "repository": "https://github.com/Sofie-Automation/sofie-mos-connection",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "lerna": "lerna",
+    "postinstall": "node scripts/update-packages.mjs",
+    "ci": "run build && run lint && run test",
+    "release:set-version": "lerna version --exact --no-changelog --no-push --yes && yarn fix-version",
+    "release:bump-release": "lerna version --exact --conventional-commits --conventional-graduate --tag-version-prefix='v' --no-push --force-publish='*' && yarn fix-version",
+    "release:bump-prerelease": "lerna version --exact --conventional-commits --conventional-prerelease --tag-version-prefix='v' --no-push --force-publish='*' && yarn fix-version",
+    "release:bump-prerelease-ci": "lerna version --exact --conventional-commits --conventional-prerelease --tag-version-prefix='v' --no-push --force-publish='*'",
+    "fix-version": "node scripts/fix-version.js",
+    "reset": "node scripts/reset.js",
+    "build": "(rimraf packages/*/dist packages/*/*.tsbuildinfo || true) && run build:main",
+    "build:main": "tsc --build tsconfig.build.json --force",
+    "build:watch": "run build:main --watch",
+    "lint:raw": "eslint",
+    "lint": "run lint:raw .",
+    "lint-fix": "run lint --fix",
+    "test": "vitest",
+    "test:coverage": "vitest --run --coverage",
+    "validate:dependencies": "yarn npm audit --environment production && lerna exec --parallel yarn license-validate",
+    "validate:dev-dependencies": "yarn npm audit",
+    "license-validate": "sofie-licensecheck --allowPackages \"mos-examples@0.0.0;quick-mos@0.0.0;mos-dummy-server@0.0.0\""
+  },
+  "devDependencies": {
+    "@sofie-automation/code-standard-preset": "3.2.0",
+    "@types/node": "^22.18.12",
+    "@vitest/coverage-v8": "^4.0.0",
+    "deep-extend": "^0.6.0",
+    "eslint": "^9.38.0",
+    "glob": "^7.2.3",
+    "husky": "^9.1.7",
+    "lerna": "^9.0.0",
+    "lint-staged": "^16.2.5",
+    "lodash": "^4.17.21",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.20.6",
+    "typescript": "~5.7.3",
+    "vitest": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "lint-staged": {
+    "*.{css,json,md,scss}": [
+      "prettier"
+    ],
+    "*.{ts,tsx,js,jsx}": [
+      "eslint"
+    ]
+  },
+  "prettier": "@sofie-automation/code-standard-preset/.prettierrc.json",
+  "packageManager": "yarn@4.10.3"
 }

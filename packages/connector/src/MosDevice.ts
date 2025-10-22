@@ -1,5 +1,5 @@
 import { Socket } from 'net'
-import { NCSServerConnection } from './connection/NCSServerConnection'
+import { NCSServerConnection } from './connection/NCSServerConnection.js'
 import { EventEmitter } from 'eventemitter3'
 import {
 	IMOSObject,
@@ -35,9 +35,9 @@ import {
 	IMOSObjectAirStatus,
 } from '@mos-connection/model'
 import { MosModel, MosReplyError } from '@mos-connection/helper'
-import { IConnectionConfig, IMOSConnectionStatus, IMOSDevice } from './api'
-import { PROFILE_VALIDNESS_CHECK_WAIT_TIME, has, safeStringify } from './lib'
-import { ParsedMosMessage } from './connection/mosMessageParser'
+import { IConnectionConfig, IMOSConnectionStatus, IMOSDevice } from './api.js'
+import { PROFILE_VALIDNESS_CHECK_WAIT_TIME, has, safeStringify } from './lib.js'
+import { ParsedMosMessage } from './connection/mosMessageParser.js'
 import { XMLMosListSearchableSchema, XMLMosObjectList, isXMLObject } from '@mos-connection/helper/dist/mosModel'
 
 const { ensureXMLObject, ensureArray, ensureSingular, ensureSingularArray } = MosModel
@@ -1658,7 +1658,7 @@ export class MosDevice extends EventEmitter<MosDeviceEvents> implements IMOSDevi
 				// Try again in non-strict mode, to append a sidecar to the thrown error if possible:
 				try {
 					nonStrictReturnValue = fcn(false)
-				} catch (e2) {
+				} catch (_e2) {
 					// ignore error
 					nonStrictReturnValue = undefined
 				}
@@ -1677,7 +1677,7 @@ export class MosDevice extends EventEmitter<MosDeviceEvents> implements IMOSDevi
 					roAck.Status
 				)}, ID: ${this.mosTypes.mosString128.stringify(roAck.ID)}`
 			)
-		} catch (e) {
+		} catch (_e) {
 			return new Error(`Reply: Unparsable reply: ${safeStringify(xmlRoAck).slice(0, 200)}`)
 		}
 	}
@@ -1696,14 +1696,18 @@ export class MosDevice extends EventEmitter<MosDeviceEvents> implements IMOSDevi
 				throw new Error('Main server back on line but not yet updated with most recent data')
 			}
 			if (roAck.status === 'NACK') {
-				throw new Error(`Error in response: ${roAck.statusDescription || 'No statusDescription given'}`)
+				throw new Error(
+					`Error in response: ${(roAck.statusDescription as string) || 'No statusDescription given'}`
+				)
 			}
 		}
 
 		if (replyMos.mosAck) {
 			const mosAck = MosModel.ensureXMLObject(replyMos.mosAck, this.strict)
 			if (mosAck.status === 'NACK') {
-				throw new Error(`Error in response: ${mosAck.statusDescription || 'No statusDescription given'}`)
+				throw new Error(
+					`Error in response: ${(mosAck.statusDescription as string) || 'No statusDescription given'}`
+				)
 			}
 		}
 
