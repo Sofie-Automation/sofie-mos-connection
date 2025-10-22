@@ -5,7 +5,7 @@
 	"description": "A dummy MOS server for testing MOS clients with failover capabilities",
 	"main": "dist/index.js",
 	"scripts": {
-		"dev": "tsx src/index.ts",
+		"dev": "run -BT tsx src/index.ts",
 		"validate:dependencies": "yarn npm audit --environment production && run license-validate",
 		"validate:dev-dependencies": "yarn npm audit ",
 		"license-validate": "run sofie-licensecheck"

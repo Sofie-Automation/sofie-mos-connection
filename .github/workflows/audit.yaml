@@ -33,6 +33,7 @@ jobs:
           yarn validate:dependencies
         env:
           CI: true
+
   validate-all-dependencies:
     name: Validate all dependencies
     runs-on: ubuntu-latest

@@ -16,7 +16,6 @@
     "release:bump-prerelease": "lerna version --exact --conventional-commits --conventional-prerelease --tag-version-prefix='v' --no-push --force-publish='*' && yarn fix-version",
     "release:bump-prerelease-ci": "lerna version --exact --conventional-commits --conventional-prerelease --tag-version-prefix='v' --no-push --force-publish='*'",
     "fix-version": "node scripts/fix-version.js",
-    "setup": "lerna bootstrap",
     "reset": "node scripts/reset.js",
     "build": "(rimraf packages/*/dist packages/*/*.tsbuildinfo || true) && run build:main",
     "build:main": "tsc --build tsconfig.build.json --force",
