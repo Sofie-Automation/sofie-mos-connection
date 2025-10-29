@@ -1,8 +1,8 @@
 import { getMosTypes, IMOSTime } from '@mos-connection/model'
 import * as XMLBuilder from 'xmlbuilder'
 
-import { addTextElementInternal } from '../../utils/Utils'
-import { MosMessage, PortType } from '../MosMessage'
+import { addTextElementInternal } from '../../utils/Utils.js'
+import { MosMessage, PortType } from '../MosMessage.js'
 
 export class HeartBeat extends MosMessage {
 	time: IMOSTime

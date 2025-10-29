@@ -14,11 +14,12 @@ import {
 	getXMLReply,
 	mosTypes,
 	setupMocks,
-} from './lib'
-import { MosConnection, MosDevice, IMOSROAck, IMOSROFullStory, IMOSRunningOrder } from '..'
-import { SocketMock } from '../__mocks__/socket'
-import { ServerMock } from '../__mocks__/server'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
+} from './lib.js'
+import { MosConnection, MosDevice, IMOSROAck, IMOSROFullStory, IMOSRunningOrder } from '../index.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { ServerMock } from '../__mocks__/server.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
+import { describe, test, expect, beforeAll, beforeEach, afterAll, MockedFunction, vitest } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore imports are unused
@@ -42,7 +43,7 @@ describe('Profile 4', () => {
 	let serverSocketMockUpper: SocketMock
 	let serverSocketMockQuery: SocketMock
 
-	let onROStory: jest.Mock<any, any>
+	let onROStory: MockedFunction<(stry: IMOSROFullStory) => Promise<IMOSROAck>>
 
 	beforeAll(async () => {
 		SocketMock.mockClear()
@@ -59,7 +60,7 @@ describe('Profile 4', () => {
 		)
 		mosDevice = await getMosDevice(mosConnection)
 
-		const roAckReply = async () => {
+		const roAckReply = async (_story: IMOSROFullStory) => {
 			const ack: IMOSROAck = {
 				ID: mosTypes.mosString128.create('runningOrderId'),
 				Status: mosTypes.mosString128.create('OK'),
@@ -68,7 +69,7 @@ describe('Profile 4', () => {
 			return ack
 		}
 		// Profile 4:
-		onROStory = jest.fn(roAckReply)
+		onROStory = vitest.fn(roAckReply)
 
 		mosDevice.onRunningOrderStory(async (story: IMOSROFullStory): Promise<IMOSROAck> => {
 			return onROStory(story)
@@ -185,7 +186,7 @@ describe('Profile 4', () => {
 		await checkReplyToServer(serverSocketMockLower, messageId, '<roAck>')
 	})
 	test('onRequestAllRunningOrders', async () => {
-		const onRoReqAll = jest.fn(async (): Promise<IMOSRunningOrder[]> => {
+		const onRoReqAll = vitest.fn(async (): Promise<IMOSRunningOrder[]> => {
 			return [
 				{
 					ID: mosTypes.mosString128.create('96857485'),
@@ -229,7 +230,7 @@ describe('Profile 4', () => {
 	})
 	test('getAllRunningOrders', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.roListAll))

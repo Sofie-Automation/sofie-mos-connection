@@ -1,8 +1,8 @@
 import { IMOSObjectList } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
-import { XMLMosObjects } from '../profile1/xmlConversion'
-import { addTextElementInternal } from '../../utils/Utils'
+import { XMLMosObjects } from '../profile1/xmlConversion.js'
+import { addTextElementInternal } from '../../utils/Utils.js'
 
 export class MosObjList extends MosMessage {
 	private options: IMOSObjectList

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Profile 1 getAllMOSObjects 1`] = `
+exports[`Profile 1 > getAllMOSObjects 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -11,7 +11,7 @@ exports[`Profile 1 getAllMOSObjects 1`] = `
 </mos>"
 `;
 
-exports[`Profile 1 getAllMOSObjects 2`] = `
+exports[`Profile 1 > getAllMOSObjects 2`] = `
 [
   {
     "Changed": {
@@ -176,7 +176,7 @@ Clip has been doubled for pad on voice over.",
 ]
 `;
 
-exports[`Profile 1 getMOSObject 1`] = `
+exports[`Profile 1 > getMOSObject 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -187,7 +187,7 @@ exports[`Profile 1 getMOSObject 1`] = `
 </mos>"
 `;
 
-exports[`Profile 1 getMOSObject 2`] = `
+exports[`Profile 1 > getMOSObject 2`] = `
 {
   "AirStatus": "READY",
   "Changed": {
@@ -322,13 +322,13 @@ Clip has been doubled for pad on voice over.",
 }
 `;
 
-exports[`Profile 1 onRequestAllMOSObjects 1`] = `
+exports[`Profile 1 > onRequestAllMOSObjects 1`] = `
 [
   [],
 ]
 `;
 
-exports[`Profile 1 onRequestAllMOSObjects 2`] = `
+exports[`Profile 1 > onRequestAllMOSObjects 2`] = `
 {
   "mos": {
     "messageID": {
@@ -356,7 +356,7 @@ exports[`Profile 1 onRequestAllMOSObjects 2`] = `
 }
 `;
 
-exports[`Profile 1 onRequestAllMOSObjects 3`] = `
+exports[`Profile 1 > onRequestAllMOSObjects 3`] = `
 {
   "mos": {
     "messageID": 99999,
@@ -435,7 +435,7 @@ exports[`Profile 1 onRequestAllMOSObjects 3`] = `
 }
 `;
 
-exports[`Profile 1 onRequestMOSObject 1`] = `
+exports[`Profile 1 > onRequestMOSObject 1`] = `
 [
   [
     "M000123",
@@ -443,7 +443,7 @@ exports[`Profile 1 onRequestMOSObject 1`] = `
 ]
 `;
 
-exports[`Profile 1 onRequestMOSObject 2`] = `
+exports[`Profile 1 > onRequestMOSObject 2`] = `
 {
   "mos": {
     "messageID": {
@@ -542,7 +542,7 @@ exports[`Profile 1 onRequestMOSObject 2`] = `
 }
 `;
 
-exports[`Profile 1 receive mosListAll 1`] = `
+exports[`Profile 1 > receive mosListAll 1`] = `
 [
   [
     [
@@ -711,7 +711,7 @@ Clip has been doubled for pad on voice over.",
 ]
 `;
 
-exports[`Profile 1 receive mosListAll 2`] = `
+exports[`Profile 1 > receive mosListAll 2`] = `
 {
   "mos": {
     "messageID": {
@@ -737,7 +737,7 @@ exports[`Profile 1 receive mosListAll 2`] = `
 }
 `;
 
-exports[`Profile 1 receive mosObj 1`] = `
+exports[`Profile 1 > receive mosObj 1`] = `
 [
   [
     [
@@ -878,7 +878,7 @@ Clip has been doubled for pad on voice over.",
 ]
 `;
 
-exports[`Profile 1 receive mosObj 2`] = `
+exports[`Profile 1 > receive mosObj 2`] = `
 {
   "mos": {
     "messageID": {
@@ -904,7 +904,7 @@ exports[`Profile 1 receive mosObj 2`] = `
 }
 `;
 
-exports[`Profile 1 sendMOSObject 1`] = `
+exports[`Profile 1 > sendMOSObject 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>

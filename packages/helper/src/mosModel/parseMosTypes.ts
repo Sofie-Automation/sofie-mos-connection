@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-base-to-string */
 import { MosTypes, getMosTypes, MosType, AnyXMLObject } from '@mos-connection/model'
-import { AnyXMLValue } from './lib'
-import { ParseError } from './ParseError'
-import { ensureSingular } from '../utils/ensureMethods'
+import { AnyXMLValue } from './lib.js'
+import { ParseError } from './ParseError.js'
+import { ensureSingular } from '../utils/ensureMethods.js'
 
 export function getParseMosTypes(strict: boolean): MosParseTypes {
 	const mosTypes = getMosTypes(strict)

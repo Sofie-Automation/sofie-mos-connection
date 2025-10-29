@@ -1,5 +1,5 @@
 import { Socket } from 'net'
-import { ConnectionType, SocketDescription } from './socketConnection'
+import { ConnectionType, SocketDescription } from './socketConnection.js'
 
 /** */
 export class Server {

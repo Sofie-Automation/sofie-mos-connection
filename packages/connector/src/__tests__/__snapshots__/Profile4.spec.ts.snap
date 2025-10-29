@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Profile 4 getAllRunningOrders 1`] = `
+exports[`Profile 4 > getAllRunningOrders 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -9,7 +9,7 @@ exports[`Profile 4 getAllRunningOrders 1`] = `
 </mos>"
 `;
 
-exports[`Profile 4 getAllRunningOrders 2`] = `
+exports[`Profile 4 > getAllRunningOrders 2`] = `
 [
   {
     "EditorialDuration": {
@@ -80,7 +80,27 @@ exports[`Profile 4 getAllRunningOrders 2`] = `
 ]
 `;
 
-exports[`Profile 4 onRunningOrderStory 1`] = `
+exports[`Profile 4 > onRunningOrderStory > <mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>1633</messageID>
+  <roAck>
+    <roID>runningOrderId</roID>
+    <roStatus>OK</roStatus>
+  </roAck>
+</mos> 1`] = `
+"<mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>1633</messageID>
+  <roAck>
+    <roID>runningOrderId</roID>
+    <roStatus>OK</roStatus>
+  </roAck>
+</mos>"
+`;
+
+exports[`Profile 4 > onRunningOrderStory 1`] = `
 [
   [
     {
@@ -627,7 +647,27 @@ exports[`Profile 4 onRunningOrderStory 1`] = `
 ]
 `;
 
-exports[`Profile 4 onRunningOrderStory, string MosPayload 1`] = `
+exports[`Profile 4 > onRunningOrderStory, string MosPayload > <mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>1635</messageID>
+  <roAck>
+    <roID>runningOrderId</roID>
+    <roStatus>OK</roStatus>
+  </roAck>
+</mos> 1`] = `
+"<mos>
+  <ncsID>their.mos.id</ncsID>
+  <mosID>our.mos.id</mosID>
+  <messageID>1635</messageID>
+  <roAck>
+    <roID>runningOrderId</roID>
+    <roStatus>OK</roStatus>
+  </roAck>
+</mos>"
+`;
+
+exports[`Profile 4 > onRunningOrderStory, string MosPayload 1`] = `
 [
   [
     {
@@ -690,10 +730,10 @@ exports[`Profile 4 onRunningOrderStory, string MosPayload 1`] = `
 ]
 `;
 
-exports[`Profile 4 onRunningOrderStory, string MosPayload: <mos>
+exports[`Profile 4 > onRunningOrderStory-single > <mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
-  <messageID>1635</messageID>
+  <messageID>1634</messageID>
   <roAck>
     <roID>runningOrderId</roID>
     <roStatus>OK</roStatus>
@@ -702,7 +742,7 @@ exports[`Profile 4 onRunningOrderStory, string MosPayload: <mos>
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
-  <messageID>1635</messageID>
+  <messageID>1634</messageID>
   <roAck>
     <roID>runningOrderId</roID>
     <roStatus>OK</roStatus>
@@ -710,27 +750,7 @@ exports[`Profile 4 onRunningOrderStory, string MosPayload: <mos>
 </mos>"
 `;
 
-exports[`Profile 4 onRunningOrderStory: <mos>
-  <ncsID>their.mos.id</ncsID>
-  <mosID>our.mos.id</mosID>
-  <messageID>1633</messageID>
-  <roAck>
-    <roID>runningOrderId</roID>
-    <roStatus>OK</roStatus>
-  </roAck>
-</mos> 1`] = `
-"<mos>
-  <ncsID>their.mos.id</ncsID>
-  <mosID>our.mos.id</mosID>
-  <messageID>1633</messageID>
-  <roAck>
-    <roID>runningOrderId</roID>
-    <roStatus>OK</roStatus>
-  </roAck>
-</mos>"
-`;
-
-exports[`Profile 4 onRunningOrderStory-single 1`] = `
+exports[`Profile 4 > onRunningOrderStory-single 1`] = `
 [
   [
     {
@@ -762,24 +782,4 @@ exports[`Profile 4 onRunningOrderStory-single 1`] = `
     },
   ],
 ]
-`;
-
-exports[`Profile 4 onRunningOrderStory-single: <mos>
-  <ncsID>their.mos.id</ncsID>
-  <mosID>our.mos.id</mosID>
-  <messageID>1634</messageID>
-  <roAck>
-    <roID>runningOrderId</roID>
-    <roStatus>OK</roStatus>
-  </roAck>
-</mos> 1`] = `
-"<mos>
-  <ncsID>their.mos.id</ncsID>
-  <mosID>our.mos.id</mosID>
-  <messageID>1634</messageID>
-  <roAck>
-    <roID>runningOrderId</roID>
-    <roStatus>OK</roStatus>
-  </roAck>
-</mos>"
 `;

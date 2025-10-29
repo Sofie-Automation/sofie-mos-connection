@@ -1,7 +1,7 @@
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
 import { IMOSListSearchableSchema } from '@mos-connection/model'
-import { XMLMosListSearchableSchema } from './xmlConversion'
+import { XMLMosListSearchableSchema } from './xmlConversion.js'
 
 export class MosListSearchableSchema extends MosMessage {
 	private options: IMOSListSearchableSchema

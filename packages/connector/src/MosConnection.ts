@@ -1,16 +1,16 @@
 import { Socket } from 'net'
-import { ConnectionConfig } from './config/connectionConfig'
-import { MosSocketServer } from './connection/mosSocketServer'
+import { ConnectionConfig } from './config/connectionConfig.js'
+import { MosSocketServer } from './connection/mosSocketServer.js'
 import { getMosTypes, IMOSAckStatus, IProfiles, MosTypes } from '@mos-connection/model'
-import { MosDevice } from './MosDevice'
-import { SocketServerEvent, SocketDescription, IncomingConnectionType } from './connection/socketConnection'
-import { NCSServerConnection } from './connection/NCSServerConnection'
+import { MosDevice } from './MosDevice.js'
+import { SocketServerEvent, SocketDescription, IncomingConnectionType } from './connection/socketConnection.js'
+import { NCSServerConnection } from './connection/NCSServerConnection.js'
 import { MosModel } from '@mos-connection/helper'
 import { EventEmitter } from 'eventemitter3'
 import * as iconv from 'iconv-lite'
-import { ParsedMosMessage, MosMessageParser } from './connection/mosMessageParser'
-import { IConnectionConfig, IMosConnection, IMOSDeviceConnectionOptions } from './api'
-import { PROFILE_VALIDNESS_CHECK_WAIT_TIME } from './lib'
+import { ParsedMosMessage, MosMessageParser } from './connection/mosMessageParser.js'
+import { IConnectionConfig, IMosConnection, IMOSDeviceConnectionOptions } from './api.js'
+import { PROFILE_VALIDNESS_CHECK_WAIT_TIME } from './lib.js'
 
 export interface MosConnectionEvents {
 	// Note: These match the events defined in IMosConnection
@@ -105,7 +105,7 @@ export class MosConnection extends EventEmitter<MosConnectionEvents> implements 
 					this._debug,
 					this.mosTypes.strict,
 					this._isOpenMediaHotStandby
-			  )
+				)
 			: null
 		this._ncsConnections[connectionOptions.primary.host] = primary
 

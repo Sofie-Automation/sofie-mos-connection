@@ -1,11 +1,14 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import { IMOSRunningOrder } from '@mos-connection/model'
-import { XMLROStory, XMLRunningOrderBase } from './xmlConversion'
+import { XMLROStory, XMLRunningOrderBase } from './xmlConversion.js'
 
 export class ROList extends MosMessage {
 	/** */
-	constructor(private ro: IMOSRunningOrder, strict: boolean) {
+	constructor(
+		private ro: IMOSRunningOrder,
+		strict: boolean
+	) {
 		super('upper', strict)
 	}
 

@@ -1,6 +1,6 @@
 {
 	"name": "@mos-connection/model",
-	"version": "4.3.2",
+	"version": "5.0.0-0",
 	"description": "Types and enums for the mos-connection library",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
@@ -11,34 +11,16 @@
 	},
 	"homepage": "https://github.com/Sofie-Automation/sofie-mos-connection#readme",
 	"scripts": {
-		"build": "run -T rimraf dist && run build:main",
-		"build:main": "run -T tsc -p tsconfig.build.json",
-		"test": "run -T jest",
-		"test:coverage": "yarn test --coverage",
-		"validate:dependencies": "yarn npm audit --environment production && yarn license-validate",
-		"validate:dev-dependencies": "yarn npm audit ",
-		"license-validate": "yarn sofie-licensecheck"
+		"license-validate": "run -BT sofie-licensecheck"
 	},
 	"engines": {
-		"node": ">=14.18.0"
+		"node": ">=22.20.0"
 	},
 	"prettier": "@sofie-automation/code-standard-preset/.prettierrc.json",
-	"lint-staged": {
-		"*.{css,json,md,scss}": [
-			"run -T prettier"
-		],
-		"*.{ts,tsx,js,jsx}": [
-			"run -T eslint"
-		]
-	},
 	"files": [
 		"/dist",
 		"/CHANGELOG.md",
 		"/README.md",
 		"/LICENSE"
-	],
-	"devDependencies": {
-		"@sofie-automation/code-standard-preset": "*",
-		"typescript": "~4.9.5"
-	}
+	]
 }

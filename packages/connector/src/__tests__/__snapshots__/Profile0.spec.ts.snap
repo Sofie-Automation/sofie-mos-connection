@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Profile 0 requestMachineInfo - empty <opTime> 1`] = `
+exports[`Profile 0 > requestMachineInfo - empty <opTime> 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -9,7 +9,7 @@ exports[`Profile 0 requestMachineInfo - empty <opTime> 1`] = `
 </mos>"
 `;
 
-exports[`Profile 0 requestMachineInfo - missing <opTime> 1`] = `
+exports[`Profile 0 > requestMachineInfo - missing <opTime> 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -18,7 +18,7 @@ exports[`Profile 0 requestMachineInfo - missing <opTime> 1`] = `
 </mos>"
 `;
 
-exports[`Profile 0 requestMachineInfo 1`] = `
+exports[`Profile 0 > requestMachineInfo 1`] = `
 "<mos>
   <ncsID>their.mos.id</ncsID>
   <mosID>our.mos.id</mosID>
@@ -27,7 +27,7 @@ exports[`Profile 0 requestMachineInfo 1`] = `
 </mos>"
 `;
 
-exports[`Profile 0 requestMachineInfo 2`] = `
+exports[`Profile 0 > requestMachineInfo 2`] = `
 {
   "DOM": {
     "_mosString128": "",

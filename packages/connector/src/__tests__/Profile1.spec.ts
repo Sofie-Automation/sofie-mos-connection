@@ -15,7 +15,7 @@ import {
 	getXMLReply,
 	mosTypes,
 	setupMocks,
-} from './lib'
+} from './lib.js'
 import {
 	MosConnection,
 	MosDevice,
@@ -27,11 +27,12 @@ import {
 	IMOSObjectPathType,
 	IMOSAck,
 	IMOSAckStatus,
-} from '..'
-import { SocketMock } from '../__mocks__/socket'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
+} from '../index.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
 import { xml2js } from 'xml-js'
 import * as Helper from '@mos-connection/helper'
+import { describe, test, expect, beforeAll, beforeEach, MockedFunction, vitest, afterAll } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore imports are unused
@@ -56,11 +57,11 @@ describe('Profile 1', () => {
 	let serverSocketMockUpper: SocketMock
 	let serverSocketMockQuery: SocketMock
 
-	let onRequestMachineInfo: jest.Mock<any, any>
-	let onRequestMOSObject: jest.Mock<any, any>
-	let onRequestAllMOSObjects: jest.Mock<any, any>
-	let onMOSObjects: jest.Mock<any, any>
-	let receivedMosObjects: Array<IMOSObject> = []
+	let onRequestMachineInfo: MockedFunction<any>
+	let onRequestMOSObject: MockedFunction<any>
+	let onRequestAllMOSObjects: MockedFunction<any>
+	let onMOSObjects: MockedFunction<(objs: IMOSObject[]) => Promise<IMOSAck>>
+	const receivedMosObjects: Array<IMOSObject> = []
 
 	beforeAll(async () => {
 		mosConnection = await getMosConnection(
@@ -73,17 +74,17 @@ describe('Profile 1', () => {
 		mosDevice = await getMosDevice(mosConnection)
 
 		// Profile 0:
-		onRequestMachineInfo = jest.fn(async () => {
+		onRequestMachineInfo = vitest.fn(async () => {
 			return xmlApiData.machineInfo
 		})
 		mosDevice.onRequestMachineInfo(async (): Promise<IMOSListMachInfo> => {
 			return onRequestMachineInfo()
 		})
 		// Profile 1:
-		onRequestMOSObject = jest.fn(async () => {
+		onRequestMOSObject = vitest.fn(async () => {
 			return xmlApiData.mosObj
 		})
-		onRequestAllMOSObjects = jest.fn(async () => {
+		onRequestAllMOSObjects = vitest.fn(async () => {
 			return [xmlApiData.mosObj, xmlApiData.mosObj2]
 		})
 		mosDevice.onRequestMOSObject(async (objId: string): Promise<IMOSObject | null> => {
@@ -92,7 +93,7 @@ describe('Profile 1', () => {
 		mosDevice.onRequestAllMOSObjects(async (): Promise<Array<IMOSObject>> => {
 			return onRequestAllMOSObjects()
 		})
-		onMOSObjects = jest.fn(async (objs: IMOSObject[]): Promise<IMOSAck> => {
+		onMOSObjects = vitest.fn(async (objs: IMOSObject[]): Promise<IMOSAck> => {
 			receivedMosObjects.push(...objs)
 
 			return {
@@ -164,7 +165,7 @@ describe('Profile 1', () => {
 		expect(parsedReply).toMatchSnapshot()
 	})
 	test('onRequestAllMOSObjects', async () => {
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, '<mosAck></mosAck>')
@@ -217,7 +218,7 @@ describe('Profile 1', () => {
 	})
 	test('getMOSObject', async () => {
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.mosObj)
@@ -237,7 +238,7 @@ describe('Profile 1', () => {
 	})
 	test('sendMOSObject', async () => {
 		// Prepare mock server response:
-		const mockReplyMosAck = jest.fn((data) => {
+		const mockReplyMosAck = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			return encode(getXMLReply(messageID, xmlData.mosAck))
@@ -313,7 +314,7 @@ describe('Profile 1', () => {
 
 		const REPLY_WAIT_TIME = 100
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.mosAck)
@@ -342,7 +343,7 @@ describe('Profile 1', () => {
 		async () => {
 			expect(socketMockLower).toBeTruthy()
 			// Prepare mock server response:
-			const mockReply = jest.fn(async (data) => {
+			const mockReply = vitest.fn(async (data) => {
 				return new Promise<Buffer>((resolve) => {
 					setTimeout(() => {
 						const str = decode(data)

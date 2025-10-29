@@ -13,11 +13,11 @@ import {
 	IMOSObjectAirStatus,
 	IMOSScope,
 } from '@mos-connection/model'
-import { AnyXMLObject, flattenXMLText, has, isEmpty, literal, omitUndefined } from '../lib'
-import { ensureArray, ensureXMLObject, ensureXMLObjectArray, isXMLObject } from '../../utils/ensureMethods'
-import { addTextElementInternal } from '../../utils/Utils'
-import { getParseMosTypes } from '../parseMosTypes'
-import { ParseError } from '../ParseError'
+import { AnyXMLObject, flattenXMLText, has, isEmpty, literal, omitUndefined } from '../lib.js'
+import { ensureArray, ensureXMLObject, ensureXMLObjectArray, isXMLObject } from '../../utils/ensureMethods.js'
+import { addTextElementInternal } from '../../utils/Utils.js'
+import { getParseMosTypes } from '../parseMosTypes.js'
+import { ParseError } from '../ParseError.js'
 
 /* eslint-disable @typescript-eslint/no-namespace */
 export namespace XMLMosAck {

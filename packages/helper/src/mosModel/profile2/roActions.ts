@@ -1,5 +1,5 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import {
 	IMOSStoryAction,
 	IMOSROStory,
@@ -8,8 +8,8 @@ import {
 	IMOSROAction,
 	IMOSString128,
 } from '@mos-connection/model'
-import { XMLROStory, XMLMosItem } from './xmlConversion'
-import { addTextElementInternal } from '../../utils/Utils'
+import { XMLROStory, XMLMosItem } from './xmlConversion.js'
+import { addTextElementInternal } from '../../utils/Utils.js'
 
 export abstract class MosSendMessage extends MosMessage {
 	constructor(strict: boolean) {
@@ -17,7 +17,11 @@ export abstract class MosSendMessage extends MosMessage {
 	}
 }
 export class ROInsertStories extends MosSendMessage {
-	constructor(private Action: IMOSStoryAction, private Stories: Array<IMOSROStory>, strict: boolean) {
+	constructor(
+		private Action: IMOSStoryAction,
+		private Stories: Array<IMOSROStory>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -34,7 +38,11 @@ export class ROInsertStories extends MosSendMessage {
 	}
 }
 export class ROInsertItems extends MosSendMessage {
-	constructor(private Action: IMOSItemAction, private Items: Array<IMOSItem>, strict: boolean) {
+	constructor(
+		private Action: IMOSItemAction,
+		private Items: Array<IMOSItem>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -52,7 +60,11 @@ export class ROInsertItems extends MosSendMessage {
 	}
 }
 export class ROReplaceStories extends MosSendMessage {
-	constructor(private Action: IMOSStoryAction, private Stories: Array<IMOSROStory>, strict: boolean) {
+	constructor(
+		private Action: IMOSStoryAction,
+		private Stories: Array<IMOSROStory>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -69,7 +81,11 @@ export class ROReplaceStories extends MosSendMessage {
 	}
 }
 export class ROReplaceItems extends MosSendMessage {
-	constructor(private Action: IMOSItemAction, private Items: Array<IMOSItem>, strict: boolean) {
+	constructor(
+		private Action: IMOSItemAction,
+		private Items: Array<IMOSItem>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -87,7 +103,11 @@ export class ROReplaceItems extends MosSendMessage {
 	}
 }
 export class ROMoveStories extends MosSendMessage {
-	constructor(private Action: IMOSStoryAction, private Stories: Array<IMOSString128>, strict: boolean) {
+	constructor(
+		private Action: IMOSStoryAction,
+		private Stories: Array<IMOSString128>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -104,7 +124,11 @@ export class ROMoveStories extends MosSendMessage {
 	}
 }
 export class ROMoveItems extends MosSendMessage {
-	constructor(private Action: IMOSItemAction, private Items: Array<IMOSString128>, strict: boolean) {
+	constructor(
+		private Action: IMOSItemAction,
+		private Items: Array<IMOSString128>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -122,7 +146,11 @@ export class ROMoveItems extends MosSendMessage {
 	}
 }
 export class RODeleteStories extends MosSendMessage {
-	constructor(private Action: IMOSROAction, private Stories: Array<IMOSString128>, strict: boolean) {
+	constructor(
+		private Action: IMOSROAction,
+		private Stories: Array<IMOSString128>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {
@@ -137,7 +165,11 @@ export class RODeleteStories extends MosSendMessage {
 	}
 }
 export class RODeleteItems extends MosSendMessage {
-	constructor(private Action: IMOSStoryAction, private Items: Array<IMOSString128>, strict: boolean) {
+	constructor(
+		private Action: IMOSStoryAction,
+		private Items: Array<IMOSString128>,
+		strict: boolean
+	) {
 		super(strict)
 	}
 	get messageXMLBlocks(): XMLBuilder.XMLElement {

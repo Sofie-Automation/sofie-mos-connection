@@ -1,5 +1,3 @@
-/* eslint-disable node/no-unpublished-require, node/no-extraneous-require */
-
 const promisify = require('util').promisify
 const glob = promisify(require('glob'))
 const rimraf = promisify(require('rimraf'))
@@ -11,7 +9,6 @@ const rimraf = promisify(require('rimraf'))
 const basePath = process.cwd()
 
 ;(async () => {
-
 	log('Gathering files to remove...')
 
 	// Remove things that arent used, to reduce file size:
@@ -60,11 +57,9 @@ const basePath = process.cwd()
 		await rimraf(folder)
 	}
 
-
 	log(`...done!`)
 })().catch(log)
 
 function log(...args) {
-	// eslint-disable-next-line no-console
 	console.log(...args)
 }

@@ -1,8 +1,8 @@
 import { MosItemReplaceOptions } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
-import { XMLMosItem } from '../profile2/xmlConversion'
-import { addTextElementInternal } from '../../utils/Utils'
+import { XMLMosItem } from '../profile2/xmlConversion.js'
+import { addTextElementInternal } from '../../utils/Utils.js'
 
 export class MosItemReplace extends MosMessage {
 	private options: MosItemReplaceOptions

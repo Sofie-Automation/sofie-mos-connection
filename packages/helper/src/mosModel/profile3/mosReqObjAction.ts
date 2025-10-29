@@ -1,7 +1,7 @@
 import { IMOSObject, IMOSString128 } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
-import { XMLMosObject } from '../profile1/xmlConversion'
+import { XMLMosObject } from '../profile1/xmlConversion.js'
 export interface MosReqObjActionOptionsNew {
 	object: IMOSObject
 }

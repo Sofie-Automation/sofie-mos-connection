@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { clearMocks, decode, delay, encode, getMessageId, getXMLReply, initMosConnection, setupMocks } from './lib'
-import { SocketMock } from '../__mocks__/socket'
-import { ServerMock } from '../__mocks__/server'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
-import { MosConnection, MosDevice, IMOSObject, IMOSConnectionStatus, ConnectionConfig } from '../'
+import { clearMocks, decode, delay, encode, getMessageId, getXMLReply, initMosConnection, setupMocks } from './lib.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { ServerMock } from '../__mocks__/server.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
+import { MosConnection, MosDevice, IMOSObject, IMOSConnectionStatus, ConnectionConfig } from '../index.js'
+import { describe, test, expect, beforeAll, beforeEach, vitest } from 'vitest'
 
 // @ts-ignore imports are unused
 import { Socket } from 'net'
@@ -18,10 +19,10 @@ describe('MosDevice: General', () => {
 	test('the Socket mock', async () => {
 		const conn = new Socket()
 
-		const onData = jest.fn()
-		const onConnect = jest.fn()
-		const onClose = jest.fn()
-		const onError = jest.fn()
+		const onData = vitest.fn()
+		const onConnect = vitest.fn()
+		const onClose = vitest.fn()
+		const onError = vitest.fn()
 
 		conn.on('data', onData)
 		conn.on('connect', onConnect)
@@ -72,8 +73,8 @@ describe('MosDevice: General', () => {
 			})
 		)
 
-		const onError = jest.fn((e) => console.log(e))
-		const onWarning = jest.fn((e) => console.log(e))
+		const onError = vitest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mos.on('error', onError)
 		mos.on('warning', onWarning)
 
@@ -102,8 +103,8 @@ describe('MosDevice: General', () => {
 				'1': true,
 			},
 		})
-		const onError = jest.fn((e) => console.log(e))
-		const onWarning = jest.fn((e) => console.log(e))
+		const onError = vitest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mos.on('error', onError)
 		mos.on('warning', onWarning)
 		expect(mos.acceptsConnections).toBe(true)
@@ -126,8 +127,8 @@ describe('MosDevice: General', () => {
 				'1': true,
 			},
 		})
-		const onError = jest.fn((e) => console.log(e))
-		const onWarning = jest.fn((e) => console.log(e))
+		const onError = vitest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mos.on('error', onError)
 		mos.on('warning', onWarning)
 
@@ -180,11 +181,11 @@ describe('MosDevice: General', () => {
 				'1': true,
 			},
 		})
-		const onError = jest.fn((e) => {
+		const onError = vitest.fn((e) => {
 			if (`${e}`.match(/Sent command timed out/)) return // ignore these
 			console.log(e)
 		})
-		const onWarning = jest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mos.on('error', onError)
 		mos.on('warning', onWarning)
 
@@ -248,7 +249,7 @@ describe('MosDevice: General', () => {
 		expect(mosDevice.secondaryId).toEqual('secondary')
 
 		// Prepare mock server response:
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.mosObj)
@@ -288,8 +289,8 @@ describe('MosDevice: General', () => {
 				},
 			})
 		)
-		const onError = jest.fn((e) => console.log(e))
-		const onWarning = jest.fn((e) => console.log(e))
+		const onError = vitest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mosConnection.on('error', onError)
 		mosConnection.on('warning', onWarning)
 
@@ -321,7 +322,7 @@ describe('MosDevice: General', () => {
 		expect(connMocks[3].connect.mock.calls[0][0]).toEqual(10542)
 		expect(connMocks[3].connect.mock.calls[0][1]).toEqual('127.0.0.1')
 
-		const connectionStatusChanged = jest.fn()
+		const connectionStatusChanged = vitest.fn()
 
 		mosDevice.onConnectionChange((connectionStatus: IMOSConnectionStatus) => {
 			connectionStatusChanged(connectionStatus)
@@ -355,8 +356,8 @@ describe('MosDevice: General', () => {
 				'1': true,
 			},
 		})
-		const onError = jest.fn((e) => console.log(e))
-		const onWarning = jest.fn((e) => console.log(e))
+		const onError = vitest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mos.on('error', (e) => {
 			// filter out heartbeat errors:
 			if (!(e + '').match(/heartbeat.*timed out/i)) onError(e)
@@ -388,9 +389,9 @@ describe('MosDevice: General', () => {
 		expect(connMocks[2].connect.mock.calls[0][0]).toEqual(10541)
 		expect(connMocks[2].connect.mock.calls[0][1]).toEqual('127.0.0.1')
 
-		const connectionStatusChanged = jest.fn()
+		const connectionStatusChanged = vitest.fn()
 
-		const errorReported = jest.fn()
+		const errorReported = vitest.fn()
 		mos.on('error', errorReported)
 
 		mosDevice.onConnectionChange((connectionStatus: IMOSConnectionStatus) => {
@@ -448,8 +449,8 @@ describe('MosDevice: General', () => {
 				'1': true,
 			},
 		})
-		const onError = jest.fn((e) => console.log(e))
-		const onWarning = jest.fn((e) => console.log(e))
+		const onError = vitest.fn((e) => console.log(e))
+		const onWarning = vitest.fn((e) => console.log(e))
 		mos.on('error', (e) => {
 			// filter out heartbeat errors:
 			if (!(e + '').match(/heartbeat.*timed out/i)) onError(e)
@@ -486,9 +487,9 @@ describe('MosDevice: General', () => {
 		connMocks[5].mockEmitConnected()
 		connMocks[6].mockEmitConnected()
 
-		const connectionStatusChanged = jest.fn()
+		const connectionStatusChanged = vitest.fn()
 
-		const errorReported = jest.fn()
+		const errorReported = vitest.fn()
 		mos.on('error', errorReported)
 
 		mosDevice.onConnectionChange((connectionStatus: IMOSConnectionStatus) => {

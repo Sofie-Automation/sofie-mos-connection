@@ -1,30 +1,11 @@
 {
 	"description": "The properties of this file are copied to all packages' package.json files by running `yarn postinstall`",
 	"scripts": {
-		"validate:dependencies": "yarn npm audit --environment production && yarn license-validate",
-		"validate:dev-dependencies": "yarn npm audit ",
-		"license-validate": "yarn sofie-licensecheck"
-	},
-	"devDependencies": {
-		"@sofie-automation/code-standard-preset": "*",
-		"typescript": "~4.9.5"
+		"license-validate": "run -BT sofie-licensecheck"
 	},
 	"engines": {
-		"node": ">=14.18.0"
+		"node": ">=22.20.0"
 	},
 	"prettier": "@sofie-automation/code-standard-preset/.prettierrc.json",
-	"lint-staged": {
-		"*.{css,json,md,scss}": [
-			"run -T prettier"
-		],
-		"*.{ts,tsx,js,jsx}": [
-			"run -T eslint"
-		]
-	},
-	"files": [
-		"/dist",
-		"/CHANGELOG.md",
-		"/README.md",
-		"/LICENSE"
-	]
+	"files": ["/dist", "/CHANGELOG.md", "/README.md", "/LICENSE"]
 }

@@ -30,10 +30,6 @@ const mosTypes = getMosTypes(true)
 
 const literal = <T>(o: T) => o
 
-test('At least one test', () => {
-	expect(2).toBe(2)
-})
-
 const xmlData = {
 	heartbeat: `<heartbeat></heartbeat>`,
 	machineInfo: `<listMachInfo>
@@ -2257,5 +2253,4 @@ const xmlApiData = {
 	}),
 }
 
-// eslint-disable-next-line jest/no-export
 export { xmlData, xmlApiData }

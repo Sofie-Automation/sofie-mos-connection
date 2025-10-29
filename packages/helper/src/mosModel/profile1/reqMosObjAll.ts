@@ -1,6 +1,6 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { addTextElementInternal } from '../../utils/Utils'
-import { MosMessage } from '../MosMessage'
+import { addTextElementInternal } from '../../utils/Utils.js'
+import { MosMessage } from '../MosMessage.js'
 
 export class ReqMosObjAll extends MosMessage {
 	private pause: number

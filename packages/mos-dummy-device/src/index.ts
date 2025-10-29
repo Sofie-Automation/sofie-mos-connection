@@ -347,9 +347,10 @@ class DummyMosServer {
 	}
 
 	// Send all loaded rundowns to a newly connected device
-	private sendAllRunningOrders(device: MosDevice): void {
+	private sendAllRunningOrders(_device: MosDevice): void {
 		// This part has not been implemented, quickTSR works for now
 		return
+		/*
 		if (this.rundowns.size === 0) {
 			console.log('No rundowns to send to new device')
 			return
@@ -387,6 +388,7 @@ class DummyMosServer {
 				)
 			}
 		}
+		*/
 	}
 
 	// Simulate a server outage
@@ -479,12 +481,10 @@ function shutdownServerAndExit(server: DummyMosServer) {
 	server
 		.shutdown()
 		.then(() => {
-			// eslint-disable-next-line no-process-exit
 			process.exit(0)
 		})
 		.catch((e) => {
 			console.error('Error shutting down server:', e)
-			// eslint-disable-next-line no-process-exit
 			process.exit(1)
 		})
 }
@@ -492,6 +492,5 @@ function shutdownServerAndExit(server: DummyMosServer) {
 // Run the application
 main().catch((error) => {
 	console.error('Fatal error:', error)
-	// eslint-disable-next-line no-process-exit
 	process.exit(1)
 })

@@ -1,7 +1,7 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import { getMosTypes, IMOSObjectStatus, IMOSString128, IMOSTime } from '@mos-connection/model'
-import { addTextElementInternal } from '../../utils/Utils'
+import { addTextElementInternal } from '../../utils/Utils.js'
 
 export enum ROElementStatType {
 	RO = 'RO',

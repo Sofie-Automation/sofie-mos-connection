@@ -1,7 +1,7 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import { IMOSROAck, IMOSROAckStory, IMOSString128 } from '@mos-connection/model'
-import { addTextElementInternal } from '../../utils/Utils'
+import { addTextElementInternal } from '../../utils/Utils.js'
 
 export class ROAck extends MosMessage implements IMOSROAck {
 	ID: IMOSString128

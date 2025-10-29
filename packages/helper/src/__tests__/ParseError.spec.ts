@@ -1,4 +1,5 @@
-import { ParseError } from '../mosModel/ParseError'
+import { ParseError } from '../mosModel/ParseError.js'
+import { describe, test, expect } from 'vitest'
 
 describe('ParseError', () => {
 	function throwsError() {
@@ -22,11 +23,11 @@ describe('ParseError', () => {
 		}
 	}
 	test('handle thrown errors', () => {
-		expect(() => throwsError()).toThrowError('test')
+		expect(() => throwsError()).toThrow('test')
 
-		expect(() => throwsParseError('a')).toThrowError('a: test')
+		expect(() => throwsParseError('a')).toThrow('a: test')
 
-		expect(() => handleError(() => throwsParseError('a'))).toThrowError('outer.a: test')
+		expect(() => handleError(() => throwsParseError('a'))).toThrow('outer.a: test')
 
 		// Test thrown stack
 		expect(getThrownStack(() => throwsError())).toMatch(/Error: test[\w\W]*at getThrownStack/gm)

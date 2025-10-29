@@ -5,34 +5,18 @@
 	"description": "A dummy MOS server for testing MOS clients with failover capabilities",
 	"main": "dist/index.js",
 	"scripts": {
-		"dev": "ts-node src/index.ts",
-		"validate:dependencies": "yarn npm audit --environment production && yarn license-validate",
-		"validate:dev-dependencies": "yarn npm audit ",
-		"license-validate": "yarn sofie-licensecheck"
+		"dev": "run -BT tsx src/index.ts",
+		"license-validate": "run -BT sofie-licensecheck"
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@mos-connection/connector": "4.3.2",
-		"chokidar": "^3.5.3"
-	},
-	"devDependencies": {
-		"@sofie-automation/code-standard-preset": "*",
-		"@types/node": "^20.10.5",
-		"ts-node": "^10.9.2",
-		"typescript": "~4.9.5"
+		"@mos-connection/connector": "workspace:*",
+		"chokidar": "^3.6.0"
 	},
 	"engines": {
-		"node": ">=14.18.0"
+		"node": ">=22.20.0"
 	},
 	"prettier": "@sofie-automation/code-standard-preset/.prettierrc.json",
-	"lint-staged": {
-		"*.{css,json,md,scss}": [
-			"run -T prettier"
-		],
-		"*.{ts,tsx,js,jsx}": [
-			"run -T eslint"
-		]
-	},
 	"files": [
 		"/dist",
 		"/CHANGELOG.md",

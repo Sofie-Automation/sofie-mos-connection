@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 node scripts/update-packages.mjs
 
-yarn run lint-staged
+lint-staged

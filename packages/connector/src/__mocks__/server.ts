@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { EventEmitter } from 'events'
 import { Server } from 'net'
-import { SocketMock } from './socket'
+import { SocketMock } from './socket.js'
 
 import * as iconv from 'iconv-lite'
+import { Mocked, vitest } from 'vitest'
 iconv.encodingExists('utf16-be')
 
 // Mock the Server class in 'net':
@@ -24,15 +25,15 @@ export class ServerMock extends EventEmitter implements Server {
 	constructor() {
 		super()
 
-		// @ts-expect-error this is comparable with ISocketMock
+		// @ts-expect-error this is comparable with IServerMock
 		instances.push(this)
 
-		this.listen = jest.fn(this.listen)
-		this.close = jest.fn(this.close)
-		this.address = jest.fn(this.address)
-		this.getConnections = jest.fn(this.getConnections)
-		this.ref = jest.fn(this.ref)
-		this.unref = jest.fn(this.unref)
+		this.listen = vitest.fn(this.listen)
+		this.close = vitest.fn(this.close)
+		this.address = vitest.fn(this.address)
+		this.getConnections = vitest.fn(this.getConnections)
+		this.ref = vitest.fn(this.ref)
+		this.unref = vitest.fn(this.unref)
 	}
 	static mockClear(): void {
 		instances.splice(0, 9999)
@@ -60,8 +61,9 @@ export class ServerMock extends EventEmitter implements Server {
 	address(): { port: number; family: string; address: string } {
 		return { port: 0, family: 'string', address: 'string' }
 	}
-	getConnections(cb: (error: Error | null, count: number) => void): void {
+	getConnections(cb: (error: Error | null, count: number) => void): this {
 		cb(null, 0)
+		return this
 	}
 	ref(): this {
 		return this
@@ -117,4 +119,4 @@ export class ServerMock extends EventEmitter implements Server {
 	}
 }
 
-export type IServerMock = jest.Mocked<ServerMock>
+export type IServerMock = Mocked<ServerMock>

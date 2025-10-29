@@ -1,4 +1,5 @@
-import { getMosTypes } from '../../mosTypes'
+import { getMosTypes } from '../../mosTypes.js'
+import { describe, test, expect } from 'vitest'
 
 describe('MosDuration', () => {
 	test('basic', () => {
@@ -6,13 +7,13 @@ describe('MosDuration', () => {
 
 		const mosDuration = mosTypes.mosDuration.create('1:23:45')
 		expect(mosTypes.mosDuration.valueOf(mosDuration)).toBe(5025)
-		expect(() => mosTypes.mosDuration.validate(mosDuration)).not.toThrowError()
+		expect(() => mosTypes.mosDuration.validate(mosDuration)).not.toThrow()
 
-		expect(() => mosTypes.mosDuration.create('asdf')).toThrowError(/Invalid input/)
-		expect(() => mosTypes.mosDuration.create('1:23:xx')).toThrowError(/Invalid input/)
-		expect(() => mosTypes.mosDuration.create('0:00:00')).not.toThrowError()
+		expect(() => mosTypes.mosDuration.create('asdf')).toThrow(/Invalid input/)
+		expect(() => mosTypes.mosDuration.create('1:23:xx')).toThrow(/Invalid input/)
+		expect(() => mosTypes.mosDuration.create('0:00:00')).not.toThrow()
 		// @ts-expect-error wrong input type
-		expect(() => mosTypes.mosDuration.create([])).toThrowError(/Invalid input/)
+		expect(() => mosTypes.mosDuration.create([])).toThrow(/Invalid input/)
 
 		// @ts-expect-error wrong input, but still:
 		expect(mosTypes.mosDuration.valueOf(5025)).toBe(5025)

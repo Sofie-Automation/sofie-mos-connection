@@ -1,7 +1,7 @@
 import * as XMLBuilder from 'xmlbuilder'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import { IMOSRunningOrder } from '@mos-connection/model'
-import { XMLRunningOrderBase } from './xmlConversion'
+import { XMLRunningOrderBase } from './xmlConversion.js'
 
 export class ROListAll extends MosMessage {
 	public ROs: IMOSRunningOrder[] = []

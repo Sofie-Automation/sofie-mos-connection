@@ -1,7 +1,7 @@
 import { IMOSRequestObjectList } from '@mos-connection/model'
-import { MosMessage } from '../MosMessage'
+import { MosMessage } from '../MosMessage.js'
 import * as XMLBuilder from 'xmlbuilder'
-import { XMLMosRequestObjectList } from './xmlConversion'
+import { XMLMosRequestObjectList } from './xmlConversion.js'
 
 export class MosReqObjList extends MosMessage {
 	private options: IMOSRequestObjectList

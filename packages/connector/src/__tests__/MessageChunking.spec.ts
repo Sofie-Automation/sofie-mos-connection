@@ -12,7 +12,7 @@ import {
 	mosTypes,
 	sendFakeIncomingMessage,
 	setupMocks,
-} from './lib'
+} from './lib.js'
 import {
 	IMOSListMachInfo,
 	IMOSObject,
@@ -21,9 +21,10 @@ import {
 	IMOSRunningOrder,
 	MosConnection,
 	MosDevice,
-} from '..'
-import { SocketMock } from '../__mocks__/socket'
-import { xmlData, xmlApiData } from '../__mocks__/testData'
+} from '../index.js'
+import { SocketMock } from '../__mocks__/socket.js'
+import { xmlData, xmlApiData } from '../__mocks__/testData.js'
+import { describe, test, expect, beforeAll, beforeEach, afterAll, MockedFunction, vitest } from 'vitest'
 
 beforeAll(() => {
 	setupMocks()
@@ -42,11 +43,11 @@ describe('message chunking', () => {
 	let serverSocketMockUpper: SocketMock
 	let serverSocketMockQuery: SocketMock
 
-	let onRequestMachineInfo: jest.Mock<any, any>
-	let onRequestMOSObject: jest.Mock<any, any>
-	let onRequestAllMOSObjects: jest.Mock<any, any>
+	let onRequestMachineInfo: MockedFunction<any>
+	let onRequestMOSObject: MockedFunction<any>
+	let onRequestAllMOSObjects: MockedFunction<any>
 
-	let onRunningOrderStory: jest.Mock<any, any>
+	let onRunningOrderStory: MockedFunction<any>
 
 	beforeAll(async () => {
 		SocketMock.mockClear()
@@ -62,17 +63,17 @@ describe('message chunking', () => {
 		mosDevice = await getMosDevice(mosConnection)
 
 		// Profile 0:
-		onRequestMachineInfo = jest.fn(async () => {
+		onRequestMachineInfo = vitest.fn(async () => {
 			return xmlApiData.machineInfo
 		})
 		mosDevice.onRequestMachineInfo(async (): Promise<IMOSListMachInfo> => {
 			return onRequestMachineInfo()
 		})
 		// Profile 1:
-		onRequestMOSObject = jest.fn(async () => {
+		onRequestMOSObject = vitest.fn(async () => {
 			return xmlApiData.mosObj
 		})
-		onRequestAllMOSObjects = jest.fn(async () => {
+		onRequestAllMOSObjects = vitest.fn(async () => {
 			return [xmlApiData.mosObj, xmlApiData.mosObj2]
 		})
 		mosDevice.onRequestMOSObject(async (objId: string): Promise<IMOSObject | null> => {
@@ -91,7 +92,7 @@ describe('message chunking', () => {
 			return ack
 		}
 		// Profile 3:
-		onRunningOrderStory = jest.fn(roAckReply)
+		onRunningOrderStory = vitest.fn(roAckReply)
 
 		mosDevice.onRunningOrderStory(async (story: IMOSROFullStory): Promise<IMOSROAck> => {
 			return onRunningOrderStory(story)
@@ -134,7 +135,7 @@ describe('message chunking', () => {
 
 	test('chunks', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data: Buffer) => {
+		const mockReply = vitest.fn((data: Buffer) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roList)
@@ -157,7 +158,7 @@ describe('message chunking', () => {
 
 	test('chunk around space', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roList)
@@ -188,7 +189,7 @@ describe('message chunking', () => {
 
 	test('junk data before', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roList)
@@ -211,7 +212,7 @@ describe('message chunking', () => {
 
 	test('junk data packet before', async () => {
 		// Prepare server response
-		const mockReply = jest.fn((data) => {
+		const mockReply = vitest.fn((data) => {
 			const str = decode(data)
 			const messageID = getMessageId(str)
 			const repl = getXMLReply(messageID, xmlData.roList)
@@ -233,8 +234,7 @@ describe('message chunking', () => {
 	})
 
 	test('incoming chunked message', async () => {
-		let onRequestMOSObject: jest.Mock<any, any>
-		onRequestMOSObject = jest.fn(async () => {
+		const onRequestMOSObject = vitest.fn(async (_objId: string) => {
 			return xmlApiData.mosObj
 		})
 		onRequestMOSObject.mockClear()
@@ -256,8 +256,7 @@ describe('message chunking', () => {
 	})
 
 	test('multiple mos tags', async () => {
-		let onRequestMOSObject: jest.Mock<any, any>
-		onRequestMOSObject = jest.fn(async () => {
+		const onRequestMOSObject = vitest.fn(async (_objId: string) => {
 			return xmlApiData.mosObj
 		})
 		onRequestMOSObject.mockClear()
@@ -291,8 +290,7 @@ describe('message chunking', () => {
 		expect(onRequestMOSObject).toHaveBeenCalledTimes(1)
 	})
 	test('multiple messages', async () => {
-		let onRequestMOSObject: jest.Mock<any, any>
-		onRequestMOSObject = jest.fn(async () => {
+		const onRequestMOSObject = vitest.fn(async (_objId: string) => {
 			return xmlApiData.mosObj
 		})
 		onRequestMOSObject.mockClear()

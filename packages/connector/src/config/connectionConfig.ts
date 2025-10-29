@@ -1,5 +1,5 @@
 import { IProfiles } from '@mos-connection/model'
-import { IConnectionConfig, IMOSDeviceConnectionOptions } from '../api'
+import { IConnectionConfig, IMOSDeviceConnectionOptions } from '../api.js'
 
 /** */
 

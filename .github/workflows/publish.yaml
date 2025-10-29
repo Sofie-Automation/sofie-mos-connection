@@ -1,0 +1,170 @@
+name: Publish prerelease
+
+on:
+  # Build tags on push
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22.x, 24.x]
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Prepare Environment
+        run: |
+          corepack enable
+          yarn install
+          yarn build
+        env:
+          CI: true
+      - name: Run tests
+        run: |
+          yarn test -- --maxWorkers=2 --forceExit
+        env:
+          CI: true
+
+  prepare:
+    name: Prepare package
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.do-publish.outputs.tag }}
+      prerelease: ${{ steps.do-publish.outputs.prerelease }}
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Enable corepack
+        run: corepack enable
+      - name: Determine publish info
+        id: do-publish
+        run: |
+          # If this run was started manually, choose nightly for main and experimental otherwise.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+              echo "Publishing nightly"
+              echo "tag=nightly" >> $GITHUB_OUTPUT
+            else
+              echo "Publishing experimental"
+              echo "tag=experimental" >> $GITHUB_OUTPUT
+            fi
+            
+            HASH=$(git rev-parse --short HEAD)
+            TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+            PRERELEASE_TAG=nightly-$(echo "${{ github.ref_name }}" | sed -r 's/[^a-z0-9]+/-/gi')
+            echo "prerelease=${PRERELEASE_TAG}-${TIMESTAMP}-${HASH}" >> $GITHUB_OUTPUT
+
+          else
+            # Otherwise (push by tag), keep the previous logic: compare published vs package.json
+            PUBLISHED_VERSION=$(yarn npm info --json . | jq -c '.version' -r)
+            THIS_VERSION=$(node -p "require('./package.json').version")
+            # Simple bash helper to compare version numbers
+            verlte() {
+              [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+            }
+            verlt() {
+              [ "$1" = "$2" ] && return 1 || verlte $1 $2
+            }
+            if verlt $PUBLISHED_VERSION $THIS_VERSION
+            then
+              echo "Publishing latest"
+              echo "tag=latest" >> $GITHUB_OUTPUT
+            else
+              echo "Publishing hotfix"
+              echo "tag=hotfix" >> $GITHUB_OUTPUT
+            fi
+          fi
+      - name: Prepare build
+        run: |
+          yarn install
+
+          # Bump to prerelease version if needed
+          if [ "${{ steps.do-publish.outputs.prerelease }}" != "" ]; then
+            OLD_VERSION=$(node -p "require('./lerna.json').version")
+            yarn workspaces foreach --all version ${OLD_VERSION}-${{ steps.do-publish.outputs.prerelease }}
+          fi
+
+          yarn build
+        env:
+          CI: true
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-dist
+          path: |
+            packages/*/dist
+            packages/*/package.json
+            package.json
+            yarn.lock
+          retention-days: 1
+          if-no-files-found: error
+
+  publish:
+    name: Publish to NPM
+    needs:
+      - prepare
+      - test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write # scoped for as short as possible, as this gives write access to npm
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Download release artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: publish-dist
+
+      - name: Publish to NPM
+        run: |
+          corepack enable
+          yarn install
+
+          # Publish from the extracted release (build output present)
+          yarn workspaces foreach --all -pt \
+            --exclude mos-connection-monorepo \
+            --exclude mos-examples \
+            --exclude quick-mos \
+            --exclude mos-dummy-server \
+            npm publish --access=public --provenance --tag ${{ needs.prepare.outputs.tag }}
+
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "**Published:** $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+        env:
+          CI: true

@@ -130,9 +130,7 @@ export class MosMessageParser extends EventEmitter<MosMessageParserEvents> {
 			// Something went seriously wrong, it's either invalid incoming mos data, or an internal parsing error..
 			// We cannot do much about this, so emit an error and move on..
 
-			// eslint-disable-next-line no-console
 			// console.log('dataChunks-------------\n' + this.dataChunks)
-			// eslint-disable-next-line no-console
 			// console.log('messageString---------\n' + messageString)
 
 			this.emit(
