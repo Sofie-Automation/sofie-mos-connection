@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/Sofie-Automation/sofie-mos-connection/compare/v5.0.0-alpha.1...v5.0.0) (2026-10-07)
+
+**Note:** Version bump only for package @mos-connection/connector
+
 # [5.0.0-alpha.1](https://github.com/Sofie-Automation/sofie-mos-connection/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2026-09-10)
 
 ### Bug Fixes

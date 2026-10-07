@@ -1,6 +1,6 @@
 {
 	"name": "@mos-connection/connector",
-	"version": "5.0.0-alpha.1",
+	"version": "5.0.0",
 	"description": "MOS compliant TCP/IP Socket connection.",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
