@@ -83,8 +83,8 @@ jobs:
 
           else
             # Otherwise (push by tag), keep the previous logic: compare published vs package.json
-            PUBLISHED_VERSION=$(yarn npm info --json . | jq -c '.version' -r)
-            THIS_VERSION=$(node -p "require('./package.json').version")
+            PUBLISHED_VERSION=$(yarn npm info --json @mos-connection/connector | jq -c '.version' -r)
+            THIS_VERSION=$(node -p "require('./packages/connector/package.json').version")
             # Simple bash helper to compare version numbers
             verlte() {
               [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
@@ -164,7 +164,7 @@ jobs:
             --exclude mos-dummy-server \
             npm publish --access=public --provenance --tag ${{ needs.prepare.outputs.tag }}
 
-          NEW_VERSION=$(node -p "require('./package.json').version")
+          NEW_VERSION=$(node -p "require('./packages/connector/package.json').version")
           echo "**Published:** $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
         env:
           CI: true
