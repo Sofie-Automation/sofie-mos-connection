@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/Sofie-Automation/sofie-mos-connection/compare/v5.0.0...v5.0.1) (2026-11-24)
+
+### Bug Fixes
+
+- preserve a single paragraph in roStorySend ([d909bf2](https://github.com/Sofie-Automation/sofie-mos-connection/commit/d909bf25fd11e2643d0e7c080e207cfe408e6235))
+
 # [5.0.0](https://github.com/Sofie-Automation/sofie-mos-connection/compare/v5.0.0-alpha.1...v5.0.0) (2026-10-07)
 
 **Note:** Version bump only for package @mos-connection/helper
