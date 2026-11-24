@@ -1,4 +1,4 @@
-name: Publish prerelease
+name: Publish to NPM
 
 on:
   # Build tags on push
