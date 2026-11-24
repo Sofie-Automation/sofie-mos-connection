@@ -73,6 +73,13 @@ function fromXMLStoryBody(xml: AnyXMLValue, strict: boolean): IMOSROFullStoryBod
 
 			body.push(bodyItem)
 		}
+	} else if (typeof xml.p === 'string') {
+		// The XML decoder stores a lone text paragraph as a named property.
+		body.push({
+			itemType: 'other',
+			Type: 'p',
+			Content: { $name: 'p', $type: 'text', text: xml.p },
+		})
 	}
 	// Temporary implementation:
 	if (xml.storyItem) {
